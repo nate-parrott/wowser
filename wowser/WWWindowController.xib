@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="WWWindowController">
+            <connections>
+                <outlet property="scrollView" destination="JA8-xk-1lO" id="GZ4-Ex-Qu4"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+            <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="JA8-xk-1lO" customClass="WWTabScrollView">
+                        <rect key="frame" x="-1" y="-1" width="482" height="272"/>
+                        <clipView key="contentView" id="yW9-es-Mb5">
+                            <rect key="frame" x="1" y="1" width="480" height="270"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y7V-eS-GtP">
+                                    <rect key="frame" x="0.0" y="0.0" width="465" height="255"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="MGx-KL-aB0">
+                            <rect key="frame" x="1" y="255" width="480" height="16"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="4hV-X3-2LT">
+                            <rect key="frame" x="-100" y="-100" width="16" height="270"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                    </scrollView>
+                    <visualEffectView appearanceType="vibrantLight" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-Xw-CIm">
+                        <rect key="frame" x="0.0" y="230" width="480" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="nw8-PK-1X7"/>
+                        </constraints>
+                    </visualEffectView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JA8-xk-1lO" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="-1" id="7Ci-Oq-NPm"/>
+                    <constraint firstAttribute="trailing" secondItem="hmT-Xw-CIm" secondAttribute="trailing" id="Asm-3j-80H"/>
+                    <constraint firstAttribute="trailing" secondItem="JA8-xk-1lO" secondAttribute="trailing" constant="-1" id="MBN-Sy-aJt"/>
+                    <constraint firstItem="hmT-Xw-CIm" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="dXn-m7-POc"/>
+                    <constraint firstAttribute="bottom" secondItem="JA8-xk-1lO" secondAttribute="bottom" constant="-1" id="fY4-h9-7Jl"/>
+                    <constraint firstItem="JA8-xk-1lO" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="-1" id="ik4-tH-Kkp"/>
+                    <constraint firstItem="hmT-Xw-CIm" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="m6W-bZ-X6v"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="j67-LM-lVq"/>
+            </connections>
+        </window>
+    </objects>
+</document>

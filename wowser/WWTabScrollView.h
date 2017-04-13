@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  WWTabScrollView.h
 //  wowser
 //
 //  Created by Nate Parrott on 4/12/17.
@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class WWWindowController;
+@class WWTab;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface WWTabScrollView : NSScrollView
+
+@property (nonatomic) NSArray <WWTab *> *tabs;
 
 @end
-

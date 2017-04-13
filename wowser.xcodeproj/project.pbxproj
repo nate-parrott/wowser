@@ -11,6 +11,13 @@
 		5F2BAF151E9F1F5D00DD9B4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF141E9F1F5D00DD9B4B /* main.m */; };
 		5F2BAF171E9F1F5D00DD9B4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */; };
 		5F2BAF1A1E9F1F5D00DD9B4B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F2BAF181E9F1F5D00DD9B4B /* MainMenu.xib */; };
+		5F2BAF2E1E9F217A00DD9B4B /* WWWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF2C1E9F217A00DD9B4B /* WWWindowController.m */; };
+		5F2BAF2F1E9F217A00DD9B4B /* WWWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F2BAF2D1E9F217A00DD9B4B /* WWWindowController.xib */; };
+		5F2BAF321E9F22DB00DD9B4B /* WWTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF311E9F22DB00DD9B4B /* WWTab.m */; };
+		5F2BAF351E9F2A9500DD9B4B /* WWTabScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF341E9F2A9500DD9B4B /* WWTabScrollView.m */; };
+		5F2BAF381E9F419B00DD9B4B /* WWWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF371E9F419B00DD9B4B /* WWWebView.m */; };
+		5F2BAF3B1E9F689C00DD9B4B /* WWTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF3A1E9F689C00DD9B4B /* WWTabView.m */; };
+		5F2BAF3E1E9F6B8500DD9B4B /* WWReplicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF3D1E9F6B8500DD9B4B /* WWReplicatorView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +28,19 @@
 		5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F2BAF191E9F1F5D00DD9B4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		5F2BAF1B1E9F1F5D00DD9B4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F2BAF2B1E9F217A00DD9B4B /* WWWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWWindowController.h; sourceTree = "<group>"; };
+		5F2BAF2C1E9F217A00DD9B4B /* WWWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWWindowController.m; sourceTree = "<group>"; };
+		5F2BAF2D1E9F217A00DD9B4B /* WWWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WWWindowController.xib; sourceTree = "<group>"; };
+		5F2BAF301E9F22DB00DD9B4B /* WWTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWTab.h; sourceTree = "<group>"; };
+		5F2BAF311E9F22DB00DD9B4B /* WWTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWTab.m; sourceTree = "<group>"; };
+		5F2BAF331E9F2A9500DD9B4B /* WWTabScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWTabScrollView.h; sourceTree = "<group>"; };
+		5F2BAF341E9F2A9500DD9B4B /* WWTabScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWTabScrollView.m; sourceTree = "<group>"; };
+		5F2BAF361E9F419B00DD9B4B /* WWWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWWebView.h; sourceTree = "<group>"; };
+		5F2BAF371E9F419B00DD9B4B /* WWWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWWebView.m; sourceTree = "<group>"; };
+		5F2BAF391E9F689C00DD9B4B /* WWTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWTabView.h; sourceTree = "<group>"; };
+		5F2BAF3A1E9F689C00DD9B4B /* WWTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWTabView.m; sourceTree = "<group>"; };
+		5F2BAF3C1E9F6B8500DD9B4B /* WWReplicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWReplicatorView.h; sourceTree = "<group>"; };
+		5F2BAF3D1E9F6B8500DD9B4B /* WWReplicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWReplicatorView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +75,19 @@
 			children = (
 				5F2BAF101E9F1F5D00DD9B4B /* AppDelegate.h */,
 				5F2BAF111E9F1F5D00DD9B4B /* AppDelegate.m */,
+				5F2BAF2B1E9F217A00DD9B4B /* WWWindowController.h */,
+				5F2BAF2C1E9F217A00DD9B4B /* WWWindowController.m */,
+				5F2BAF2D1E9F217A00DD9B4B /* WWWindowController.xib */,
+				5F2BAF331E9F2A9500DD9B4B /* WWTabScrollView.h */,
+				5F2BAF341E9F2A9500DD9B4B /* WWTabScrollView.m */,
+				5F2BAF301E9F22DB00DD9B4B /* WWTab.h */,
+				5F2BAF311E9F22DB00DD9B4B /* WWTab.m */,
+				5F2BAF391E9F689C00DD9B4B /* WWTabView.h */,
+				5F2BAF3A1E9F689C00DD9B4B /* WWTabView.m */,
+				5F2BAF3C1E9F6B8500DD9B4B /* WWReplicatorView.h */,
+				5F2BAF3D1E9F6B8500DD9B4B /* WWReplicatorView.m */,
+				5F2BAF361E9F419B00DD9B4B /* WWWebView.h */,
+				5F2BAF371E9F419B00DD9B4B /* WWWebView.m */,
 				5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */,
 				5F2BAF181E9F1F5D00DD9B4B /* MainMenu.xib */,
 				5F2BAF1B1E9F1F5D00DD9B4B /* Info.plist */,
@@ -132,6 +165,7 @@
 			files = (
 				5F2BAF171E9F1F5D00DD9B4B /* Assets.xcassets in Resources */,
 				5F2BAF1A1E9F1F5D00DD9B4B /* MainMenu.xib in Resources */,
+				5F2BAF2F1E9F217A00DD9B4B /* WWWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,8 +176,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F2BAF351E9F2A9500DD9B4B /* WWTabScrollView.m in Sources */,
 				5F2BAF151E9F1F5D00DD9B4B /* main.m in Sources */,
+				5F2BAF3B1E9F689C00DD9B4B /* WWTabView.m in Sources */,
+				5F2BAF3E1E9F6B8500DD9B4B /* WWReplicatorView.m in Sources */,
+				5F2BAF2E1E9F217A00DD9B4B /* WWWindowController.m in Sources */,
+				5F2BAF381E9F419B00DD9B4B /* WWWebView.m in Sources */,
 				5F2BAF121E9F1F5D00DD9B4B /* AppDelegate.m in Sources */,
+				5F2BAF321E9F22DB00DD9B4B /* WWTab.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

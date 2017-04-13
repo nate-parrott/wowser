@@ -7,22 +7,36 @@
 //
 
 #import "AppDelegate.h"
+#import "WWWindowController.h"
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+    [self openWindowIfNoneExists];
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self openWindowIfNoneExists];
+}
+
+- (void)openWindowIfNoneExists {
+    if ([[NSApp windows] count] == 0) {
+        [self newBrowserWindow];
+    }
+}
+
+- (void)newBrowserWindow {
+    WWWindowController *win = [[WWWindowController alloc] initWithWindowNibName:@"WWWindowController"];
+    [win.window makeKeyAndOrderFront:nil];
+    [NSApp activateIgnoringOtherApps:YES];
+}
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
-
 
 @end

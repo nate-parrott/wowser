@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  WWWindowController.h
 //  wowser
 //
 //  Created by Nate Parrott on 4/12/17.
@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class WWWindowController;
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface WWWindowController : NSWindowController
+
++ (BOOL)doOpenWindowsExist;
 
 @end
-
