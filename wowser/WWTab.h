@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 @import WebKit;
+@class WWTitleCell;
 
 @interface WWTab : NSObject
 
 - (NSView *)getOrCreateView;
+- (WWTitleCell *)getOrCreateTitleCell;
 
 @end

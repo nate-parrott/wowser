@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="WWWindowController">
             <connections>
                 <outlet property="scrollView" destination="JA8-xk-1lO" id="GZ4-Ex-Qu4"/>
+                <outlet property="titleBar" destination="IHs-wD-Ntk" id="YHW-rf-UWq"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -45,19 +46,37 @@
                         </scroller>
                     </scrollView>
                     <visualEffectView appearanceType="vibrantLight" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-Xw-CIm">
-                        <rect key="frame" x="0.0" y="230" width="480" height="40"/>
+                        <rect key="frame" x="0.0" y="206" width="480" height="64"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="IHs-wD-Ntk">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="cMj-tT-Cx3"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="nw8-PK-1X7"/>
+                            <constraint firstItem="IHs-wD-Ntk" firstAttribute="leading" secondItem="hmT-Xw-CIm" secondAttribute="leading" id="QaT-gn-nqB"/>
+                            <constraint firstAttribute="trailing" secondItem="IHs-wD-Ntk" secondAttribute="trailing" id="U3T-vk-g8m"/>
+                            <constraint firstAttribute="bottom" secondItem="IHs-wD-Ntk" secondAttribute="bottom" id="cSa-GK-6zK"/>
+                            <constraint firstAttribute="height" constant="64" id="nw8-PK-1X7"/>
                         </constraints>
                     </visualEffectView>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aty-gc-yaL">
+                        <rect key="frame" x="0.0" y="194" width="480" height="12"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="TitleBorder" id="j6h-8m-bp7"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="JA8-xk-1lO" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="-1" id="7Ci-Oq-NPm"/>
+                    <constraint firstItem="aty-gc-yaL" firstAttribute="top" secondItem="hmT-Xw-CIm" secondAttribute="bottom" id="Amn-TG-F8B"/>
                     <constraint firstAttribute="trailing" secondItem="hmT-Xw-CIm" secondAttribute="trailing" id="Asm-3j-80H"/>
+                    <constraint firstItem="aty-gc-yaL" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="JgL-1l-gVW"/>
                     <constraint firstAttribute="trailing" secondItem="JA8-xk-1lO" secondAttribute="trailing" constant="-1" id="MBN-Sy-aJt"/>
                     <constraint firstItem="hmT-Xw-CIm" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="dXn-m7-POc"/>
                     <constraint firstAttribute="bottom" secondItem="JA8-xk-1lO" secondAttribute="bottom" constant="-1" id="fY4-h9-7Jl"/>
                     <constraint firstItem="JA8-xk-1lO" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="-1" id="ik4-tH-Kkp"/>
+                    <constraint firstAttribute="trailing" secondItem="aty-gc-yaL" secondAttribute="trailing" id="kdi-Wf-TE7"/>
                     <constraint firstItem="hmT-Xw-CIm" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="m6W-bZ-X6v"/>
                 </constraints>
             </view>
@@ -66,4 +85,7 @@
             </connections>
         </window>
     </objects>
+    <resources>
+        <image name="TitleBorder" width="4" height="12"/>
+    </resources>
 </document>

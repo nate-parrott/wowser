@@ -9,9 +9,11 @@
 #import "WWTab.h"
 #import "WWWebView.h"
 #import "WWTabView.h"
+#import "WWTitleCell.h"
 
 @interface WWTab () {
     WWTabView *_view;
+    WWTitleCell *_titleCell;
 }
 
 @end
@@ -32,6 +34,13 @@
 - (WKWebViewConfiguration *)createConfiguration {
     WKWebViewConfiguration *conf = [WKWebViewConfiguration new];
     return conf;
+}
+
+- (WWTitleCell *)getOrCreateTitleCell {
+    if (!_titleCell) {
+        _titleCell = [WWTitleCell new];
+    }
+    return _titleCell;
 }
 
 @end

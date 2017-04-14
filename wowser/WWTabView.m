@@ -30,7 +30,7 @@
     
     CAReplicatorLayer *r = [_repl replicatorLayer];
     r.instanceCount = 2;
-    r.instanceTransform = CATransform3DMakeTranslation(0, 40, -1);
+    r.instanceTransform = CATransform3DMakeTranslation(0, 64, -1);
         
     return self;
 }
@@ -39,7 +39,7 @@
     [super layout];
     self.repl.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
     // self.repl.layer.transform = CATransform3DMakeTranslation(0, 40, 0);
-    self.webView.frame = CGRectMake(0, 0, self.repl.bounds.size.width, self.repl.bounds.size.height - 40);
+    self.webView.frame = CGRectMake(0, 0, self.repl.bounds.size.width, self.repl.bounds.size.height - 64);
 }
 
 @end
