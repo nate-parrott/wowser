@@ -45,6 +45,7 @@
     self.url.stringValue = @"https://google.com";
     self.url.wantsLayer = YES;
     self.url.layer.opacity = 0;
+    self.url.focusRingType = NSFocusRingTypeNone;
     
     self.divider = [NSImageView imageViewWithImage:[NSImage imageNamed:@"TabDivider"]];
     [self addSubview:self.divider];
