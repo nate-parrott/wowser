@@ -10,6 +10,6 @@
 
 @interface WWTitleCell : NSView
 
-@property (nonatomic, readonly) NSTextField *title;
+@property (nonatomic, readonly) NSTextField *title, *url;
 
 @end

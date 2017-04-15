@@ -8,9 +8,11 @@
 
 #import "WWTitleCell.h"
 
-@interface WWTitleCell ()
+@interface WWTitleCell () {
+    NSTrackingArea *_trackingArea;
+}
 
-@property (nonatomic) NSTextField *title;
+@property (nonatomic) NSTextField *title, *url;
 @property (nonatomic) NSImageView *divider;
 
 @end
@@ -30,6 +32,19 @@
     self.title.selectable = NO;
     self.title.alignment = NSTextAlignmentCenter;
     self.title.stringValue = @"This is a Tab";
+    self.title.font = [NSFont systemFontOfSize:14 weight:NSFontWeightMedium];
+    self.title.textColor = [NSColor colorWithWhite:0 alpha:0.66];
+    self.title.wantsLayer = YES;
+    
+    self.url = [NSTextField new];
+    [self addSubview:self.url];
+    self.url.bezeled = NO;
+    self.url.drawsBackground = NO;
+    self.url.alignment = NSTextAlignmentCenter;
+    self.url.font = [NSFont systemFontOfSize:12 weight:NSFontWeightRegular];
+    self.url.stringValue = @"https://google.com";
+    self.url.wantsLayer = YES;
+    self.url.layer.opacity = 0;
     
     self.divider = [NSImageView imageViewWithImage:[NSImage imageNamed:@"TabDivider"]];
     [self addSubview:self.divider];
@@ -41,9 +56,31 @@
 
 - (void)layout {
     [super layout];
+    
     self.title.frame = NSMakeRect(0, 0, self.bounds.size.width, 30);
+    self.url.frame = NSMakeRect(0, 0, self.bounds.size.width, 29);
+    
     CGSize imageSize = self.divider.image.size;
     self.divider.frame = NSMakeRect(self.bounds.size.width - imageSize.width, 0, imageSize.width, imageSize.height);
+}
+
+- (void)mouseEntered:(NSEvent *)event {
+    self.url.layer.opacity = 1;
+    self.title.layer.opacity = 0;
+}
+
+- (void)mouseExited:(NSEvent *)event {
+    self.url.layer.opacity = 0;
+    self.title.layer.opacity = 1;
+}
+
+- (void)updateTrackingAreas {
+    [super updateTrackingAreas];
+    if (_trackingArea) {
+        [self removeTrackingArea:_trackingArea];
+    }
+    _trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds] options:NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways owner:self userInfo:nil];
+    [self addTrackingArea:_trackingArea];
 }
 
 @end
