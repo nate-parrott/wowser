@@ -39,7 +39,7 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     [[[self class] windowControllers] addObject:self];
-    
+        
     self.window.titleVisibility = NSWindowTitleHidden;
     self.window.titlebarAppearsTransparent = YES;
     self.window.styleMask |=  NSFullSizeContentViewWindowMask;
