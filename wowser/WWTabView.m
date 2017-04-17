@@ -9,18 +9,23 @@
 #import "WWTabView.h"
 @import QuartzCore;
 #import "WWReplicatorView.h"
+#import "WWWindowController.h"
 
-@interface WWTabView ()
+@interface WWTabView () {
+}
 
 @property (nonatomic) WWReplicatorView *repl;
 @property (nonatomic) WKWebView *webView;
+@property (nonatomic, weak) WWTab *tab;
 
 @end
 
 @implementation WWTabView
 
-- (instancetype)initWithWebView:(WKWebView *)webView {
+- (instancetype)initWithWebView:(WKWebView *)webView tab:(WWTab *)tab {
     self = [super init];
+    
+    self.tab = tab;
     
     self.repl = [WWReplicatorView new];
     [self addSubview:self.repl];

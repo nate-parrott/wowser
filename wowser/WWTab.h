@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 @import WebKit;
 @class WWTitleCell;
+@class WWTabView;
 
 @interface WWTab : NSObject
 
-- (NSView *)getOrCreateView;
+- (WWTabView *)getOrCreateView;
 - (WWTitleCell *)getOrCreateTitleCell;
+- (BOOL)isViewLoaded;
+
+- (void)didInteract;
+@property (nonatomic) CFAbsoluteTime lastInteractionTime;
 
 @end

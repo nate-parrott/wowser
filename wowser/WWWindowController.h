@@ -8,8 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class WWTab;
+
 @interface WWWindowController : NSWindowController
 
 + (BOOL)doOpenWindowsExist;
++ (instancetype)controllerForWindow:(NSWindow *)window;
+
+@property (nonatomic) NSArray<WWTab *> *tabs;
+
+- (WWTab *)tabForKeyActions;
+- (void)newTab;
+- (void)closeTab;
 
 @end

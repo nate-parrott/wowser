@@ -8,6 +8,7 @@
 
 #import "WWTabScrollView.h"
 #import "WWTab.h"
+#import "WWTabView.h"
 @import WebKit;
 
 @implementation WWTabScrollView
@@ -22,9 +23,9 @@
     for (WWTab *tab in tabs) {
         if (![[tab getOrCreateView] superview]) {
             [self.documentView addSubview:[tab getOrCreateView]];
-            [self setNeedsLayout:YES];
         }
     }
+    [self setNeedsLayout:YES];
 }
 
 - (void)layout {

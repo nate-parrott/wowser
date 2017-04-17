@@ -7,6 +7,9 @@
 //
 
 #import "WWWebView.h"
+#import "WWWindowController.h"
+#import "WWTabView.h"
+#import "WWTab.h"
 
 @interface WWWebView () {
     BOOL _forwardScrollToParent;
@@ -21,6 +24,7 @@
         [self.enclosingScrollView scrollWheel:event];
     } else {
         [super scrollWheel:event];
+        [self recordInteractionWithThisTab];
     }
 }
 
@@ -36,6 +40,20 @@
     } else {
         _forwardScrollToParent = NO;
     }
+}
+
+- (WWTab *)associatedTab {
+    WWWindowController *ct = [WWWindowController controllerForWindow:self.window];
+    for (WWTab *tab in ct.tabs) {
+        if ([tab isViewLoaded] && [tab getOrCreateView].webView == self) {
+            return tab;
+        }
+    }
+    return nil;
+}
+
+- (void)recordInteractionWithThisTab {
+    [[self associatedTab] didInteract];
 }
 
 @end

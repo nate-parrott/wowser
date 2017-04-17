@@ -8,9 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 @import WebKit;
+@class WWTab;
 
 @interface WWTabView : NSView
 
-- (instancetype)initWithWebView:(WKWebView *)webView;
+- (instancetype)initWithWebView:(WKWebView *)webView tab:(WWTab *)tab;
+- (WKWebView *)webView;
 
 @end

@@ -23,12 +23,12 @@
 
 @implementation WWTab
 
-- (NSView *)getOrCreateView {
+- (WWTabView *)getOrCreateView {
     if (!_view) {
         _webView = [[WWWebView alloc] initWithFrame:CGRectZero configuration:[self createConfiguration]];
         _webView.customUserAgent = @"Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25";
         _webView.allowsBackForwardNavigationGestures = YES;
-        _view = [[WWTabView alloc] initWithWebView:_webView];
+        _view = [[WWTabView alloc] initWithWebView:_webView tab:self];
         
         __weak WWTab *weakSelf = self;
         [self.KVOController observe:_webView keyPath:@"URL" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew block:^(id  _Nullable observer, id  _Nonnull object, NSDictionary<NSString *,id> * _Nonnull change) {
@@ -60,9 +60,14 @@
     return _titleCell;
 }
 
+- (BOOL)isViewLoaded {
+    return !!_view;
+}
+
 #pragma mark Title cell delegate
 
 - (void)titleCell:(WWTitleCell *)titleCell didTypeReturnWithText:(NSString *)text {
+    [self didInteract];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL withNaturalString:text]]];
 }
 
@@ -82,6 +87,11 @@
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     
+}
+
+#pragma mark Interaction tracking
+- (void)didInteract {
+    self.lastInteractionTime = CFAbsoluteTimeGetCurrent();
 }
 
 @end

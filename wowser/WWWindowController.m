@@ -11,10 +11,10 @@
 #import "WWTabScrollView.h"
 #import "ConvenienceCategories.h"
 #import "WWTitleCell.h"
+#import "WWTabView.h"
 
 @interface WWWindowController () <NSWindowDelegate>
 
-@property (nonatomic) NSArray<WWTab *> *tabs;
 @property (nonatomic) IBOutlet WWTabScrollView *scrollView;
 @property (nonatomic) IBOutlet NSView *titleBar;
 @property (nonatomic) NSArray<WWTitleCell *> *titleCells;
@@ -30,6 +30,15 @@
         windowControllers = [NSMutableSet set];
     });
     return windowControllers;
+}
+
++ (instancetype)controllerForWindow:(NSWindow *)window {
+    for (WWWindowController *controller in [self windowControllers]) {
+        if (controller.window == window) {
+            return controller;
+        }
+    }
+    return nil;
 }
 
 + (BOOL)doOpenWindowsExist {
@@ -52,6 +61,7 @@
 }
 
 - (void)setTabs:(NSArray<WWTab *> *)tabs {
+    _tabs = tabs;
     self.scrollView.tabs = tabs;
     self.titleCells = [tabs map:^id(id obj) {
         return [obj getOrCreateTitleCell];
@@ -64,6 +74,80 @@
 
 - (void)windowDidResize:(NSNotification *)notification {
     [self updateTitleBarLayout];
+}
+
+#pragma mark Tab logic
+
+- (WWTab *)tabForKeyActions {
+    WWTab *tab = [self tabThatMouseIsOver] ? : [self mostRecentlyInteractedTab];
+    NSArray *visible = [self visibleTabs];
+    if (tab && [visible containsObject:tab]) {
+        return tab;
+    } else {
+        return visible.firstObject;
+    }
+}
+
+- (NSArray<WWTab *> *)visibleTabs {
+    NSMutableArray *visible = [NSMutableArray new];
+    for (WWTab *tab in self.tabs) {
+        if ([tab isViewLoaded]) {
+            NSView *tabView = [tab getOrCreateView];
+            if (NSIntersectsRect(self.window.contentView.bounds, [self.window.contentView convertRect:tabView.bounds fromView:tabView])) {
+                [visible addObject:tab];
+            }
+        }
+    }
+    return visible;
+}
+
+- (WWTab *)tabThatMouseIsOver {
+    NSPoint globalLocation = [NSEvent mouseLocation];
+    NSPoint windowLocation = [[self window] convertScreenToBase:globalLocation];
+    for (WWTab *tab in self.tabs) {
+        if ([tab isViewLoaded]) {
+            WWTabView *view = [tab getOrCreateView];
+            NSPoint viewLocation = [view convertPoint:windowLocation fromView:nil];
+            if (NSPointInRect(viewLocation, view.bounds)) {
+                return tab;
+            }
+        }
+    }
+    return nil;
+}
+
+- (WWTab *)mostRecentlyInteractedTab {
+    NSArray *sorted = [self.tabs sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"lastInteractionTime" ascending:YES]]];
+    return sorted.lastObject;
+}
+
+- (void)newTab {
+    WWTab *tab = [WWTab new];
+    [self insertTab:tab afterTab:nil];
+}
+
+- (void)closeTab {
+    WWTab *keyTab = [self tabForKeyActions];
+    if (keyTab) {
+        NSMutableArray *tabList = self.tabs.mutableCopy;
+        [tabList removeObject:keyTab];
+        self.tabs = tabList;
+    }
+}
+
+- (void)insertTab:(WWTab *)tab afterTab:(WWTab *)tabOrNil {
+    NSMutableArray *tabList = self.tabs.mutableCopy;
+    NSInteger index = 0;
+    if (tabOrNil) {
+        index = [tabList indexOfObject:tabOrNil] + 1;
+    } else {
+        WWTab *keyTab = [self tabForKeyActions];
+        if (keyTab) {
+            index = [tabList indexOfObject:keyTab] + 1;
+        }
+    }
+    [tabList insertObject:tab atIndex:index];
+    self.tabs = tabList;
 }
 
 #pragma mark Layout

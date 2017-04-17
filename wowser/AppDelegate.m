@@ -39,4 +39,14 @@
     // Insert code here to tear down your application
 }
 
+- (IBAction)newTab:(id)sender {
+    WWWindowController *controller = [WWWindowController controllerForWindow:[NSApp keyWindow]];
+    [controller newTab];
+}
+
+- (IBAction)closeTab:(id)sender {
+    WWWindowController *controller = [WWWindowController controllerForWindow:[NSApp keyWindow]];
+    [controller closeTab];
+}
+
 @end
