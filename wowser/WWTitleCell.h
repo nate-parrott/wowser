@@ -22,5 +22,6 @@
 
 @property (nonatomic, readonly) NSTextField *title, *url;
 @property (nonatomic, weak) id<WWTitleCellDelegate> delegate;
+@property (nonatomic) NSString *urlString;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		122871C64A5CC5B2E972CCB3 /* Pods_wowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B996AB78C8ECCBCC83F9A4D9 /* Pods_wowser.framework */; };
 		5F2BAF121E9F1F5D00DD9B4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF111E9F1F5D00DD9B4B /* AppDelegate.m */; };
 		5F2BAF151E9F1F5D00DD9B4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F2BAF141E9F1F5D00DD9B4B /* main.m */; };
 		5F2BAF171E9F1F5D00DD9B4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		522AF778397E4539BB0A5942 /* Pods-wowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-wowser/Pods-wowser.release.xcconfig"; sourceTree = "<group>"; };
 		5F2BAF0D1E9F1F5D00DD9B4B /* wowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F2BAF101E9F1F5D00DD9B4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5F2BAF111E9F1F5D00DD9B4B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,6 +55,8 @@
 		5F733F251EA32D9500D413BB /* WWTransformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWTransformView.m; sourceTree = "<group>"; };
 		5F733F271EA46C4700D413BB /* NSURL+NaturalURLEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NaturalURLEntry.h"; sourceTree = "<group>"; };
 		5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NaturalURLEntry.m"; sourceTree = "<group>"; };
+		B996AB78C8ECCBCC83F9A4D9 /* Pods_wowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E82472408719D54B59DEDBF6 /* Pods-wowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-wowser/Pods-wowser.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +64,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				122871C64A5CC5B2E972CCB3 /* Pods_wowser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F355A428AAB30B15A658EF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B996AB78C8ECCBCC83F9A4D9 /* Pods_wowser.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5F2BAF041E9F1F5D00DD9B4B = {
 			isa = PBXGroup;
 			children = (
 				5F2BAF0F1E9F1F5D00DD9B4B /* wowser */,
 				5F2BAF0E1E9F1F5D00DD9B4B /* Products */,
+				5FD5D7F300DB88A9A6AA4E16 /* Pods */,
+				4F355A428AAB30B15A658EF9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +139,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5FD5D7F300DB88A9A6AA4E16 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E82472408719D54B59DEDBF6 /* Pods-wowser.debug.xcconfig */,
+				522AF778397E4539BB0A5942 /* Pods-wowser.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,9 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F2BAF1E1E9F1F5D00DD9B4B /* Build configuration list for PBXNativeTarget "wowser" */;
 			buildPhases = (
+				1A7D238F4316D08550376492 /* [CP] Check Pods Manifest.lock */,
 				5F2BAF091E9F1F5D00DD9B4B /* Sources */,
 				5F2BAF0A1E9F1F5D00DD9B4B /* Frameworks */,
 				5F2BAF0B1E9F1F5D00DD9B4B /* Resources */,
+				E05C4131DE676EE239FE5F87 /* [CP] Embed Pods Frameworks */,
+				E74760C909DD1C1FA23D6F73 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,6 +217,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1A7D238F4316D08550376492 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E05C4131DE676EE239FE5F87 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wowser/Pods-wowser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E74760C909DD1C1FA23D6F73 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-wowser/Pods-wowser-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F2BAF091E9F1F5D00DD9B4B /* Sources */ = {
@@ -314,6 +389,7 @@
 		};
 		5F2BAF1F1E9F1F5D00DD9B4B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E82472408719D54B59DEDBF6 /* Pods-wowser.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -327,6 +403,7 @@
 		};
 		5F2BAF201E9F1F5D00DD9B4B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 522AF778397E4539BB0A5942 /* Pods-wowser.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
