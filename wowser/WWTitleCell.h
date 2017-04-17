@@ -8,8 +8,19 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class WWTitleCell;
+
+@protocol WWTitleCellDelegate
+
+- (void)titleCell:(WWTitleCell *)titleCell didTypeReturnWithText:(NSString *)text;
+
+@end
+
+
+
 @interface WWTitleCell : NSView
 
 @property (nonatomic, readonly) NSTextField *title, *url;
+@property (nonatomic, weak) id<WWTitleCellDelegate> delegate;
 
 @end

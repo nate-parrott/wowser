@@ -21,6 +21,7 @@
 		5F733F201EA0541C00D413BB /* WWTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F1F1EA0541C00D413BB /* WWTitleCell.m */; };
 		5F733F231EA0631E00D413BB /* ConvenienceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F221EA0631E00D413BB /* ConvenienceCategories.m */; };
 		5F733F261EA32D9500D413BB /* WWTransformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F251EA32D9500D413BB /* WWTransformView.m */; };
+		5F733F291EA46C4700D413BB /* NSURL+NaturalURLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		5F733F221EA0631E00D413BB /* ConvenienceCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvenienceCategories.m; sourceTree = "<group>"; };
 		5F733F241EA32D9500D413BB /* WWTransformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWTransformView.h; sourceTree = "<group>"; };
 		5F733F251EA32D9500D413BB /* WWTransformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWTransformView.m; sourceTree = "<group>"; };
+		5F733F271EA46C4700D413BB /* NSURL+NaturalURLEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NaturalURLEntry.h"; sourceTree = "<group>"; };
+		5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NaturalURLEntry.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 				5F733F221EA0631E00D413BB /* ConvenienceCategories.m */,
 				5F733F241EA32D9500D413BB /* WWTransformView.h */,
 				5F733F251EA32D9500D413BB /* WWTransformView.m */,
+				5F733F271EA46C4700D413BB /* NSURL+NaturalURLEntry.h */,
+				5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */,
 				5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */,
 				5F2BAF181E9F1F5D00DD9B4B /* MainMenu.xib */,
 				5F2BAF1B1E9F1F5D00DD9B4B /* Info.plist */,
@@ -196,6 +201,7 @@
 				5F733F231EA0631E00D413BB /* ConvenienceCategories.m in Sources */,
 				5F2BAF151E9F1F5D00DD9B4B /* main.m in Sources */,
 				5F2BAF3B1E9F689C00DD9B4B /* WWTabView.m in Sources */,
+				5F733F291EA46C4700D413BB /* NSURL+NaturalURLEntry.m in Sources */,
 				5F2BAF3E1E9F6B8500DD9B4B /* WWReplicatorView.m in Sources */,
 				5F733F201EA0541C00D413BB /* WWTitleCell.m in Sources */,
 				5F2BAF2E1E9F217A00DD9B4B /* WWWindowController.m in Sources */,
