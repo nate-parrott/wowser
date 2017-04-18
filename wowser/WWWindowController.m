@@ -56,8 +56,12 @@
     self.tabs = @[[WWTab new], [WWTab new], [WWTab new], [WWTab new], [WWTab new]];
     // self.tabs = @[[WWTab new]];
     
-    self.scrollView.contentView.postsBoundsChangedNotifications = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didScroll:) name:NSViewBoundsDidChangeNotification object:self.scrollView.contentView];
+    // self.scrollView.contentView.postsBoundsChangedNotifications = YES;
+    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didScroll:) name:NSViewBoundsDidChangeNotification object:self.scrollView.contentView];
+    __weak WWWindowController *weakSelf = self;
+    self.scrollView.onScroll = ^(CGPoint p) {
+        [weakSelf updateTitleBarLayout];
+    };
 }
 
 - (void)setTabs:(NSArray<WWTab *> *)tabs {
@@ -167,12 +171,8 @@
     [self updateTitleBarLayout];
 }
 
-- (void)didScroll:(NSNotification *)notif {
-    [self updateTitleBarLayout];
-}
-
 - (void)updateTitleBarLayout {
-    CGFloat x = -self.scrollView.contentView.bounds.origin.x;
+    CGFloat x = -self.scrollView.contentOffset.x;
     for (WWTitleCell *cell in self.titleCells) {
         cell.frame = NSMakeRect(x, 0, 400, self.titleBar.bounds.size.height);
         x += 400;

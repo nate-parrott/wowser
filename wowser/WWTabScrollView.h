@@ -9,8 +9,12 @@
 #import <Cocoa/Cocoa.h>
 @class WWTab;
 
-@interface WWTabScrollView : NSScrollView
+@interface WWTabScrollView : NSView
 
 @property (nonatomic) NSArray <WWTab *> *tabs;
+@property (nonatomic) CGPoint contentOffset;
+@property (nonatomic) CGSize contentSize;
+
+@property (nonatomic, copy) void (^onScroll)(CGPoint offset);
 
 @end

@@ -8,7 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="WWWindowController">
             <connections>
-                <outlet property="scrollView" destination="JA8-xk-1lO" id="GZ4-Ex-Qu4"/>
+                <outlet property="scrollView" destination="44B-V0-aye" id="M3V-1Y-gGM"/>
                 <outlet property="titleBar" destination="IHs-wD-Ntk" id="YHW-rf-UWq"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -19,32 +19,14 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO" userLabel="Root View">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="JA8-xk-1lO" customClass="WWTabScrollView">
-                        <rect key="frame" x="-1" y="-1" width="482" height="272"/>
-                        <clipView key="contentView" id="yW9-es-Mb5">
-                            <rect key="frame" x="1" y="1" width="480" height="270"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y7V-eS-GtP">
-                                    <rect key="frame" x="0.0" y="0.0" width="465" height="255"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                            </subviews>
-                        </clipView>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="MGx-KL-aB0">
-                            <rect key="frame" x="1" y="255" width="480" height="16"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="4hV-X3-2LT">
-                            <rect key="frame" x="-100" y="-100" width="16" height="270"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="44B-V0-aye" customClass="WWTabScrollView">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                    </customView>
                     <visualEffectView appearanceType="vibrantLight" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-Xw-CIm">
                         <rect key="frame" x="0.0" y="206" width="480" height="64"/>
                         <subviews>
@@ -68,14 +50,14 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="JA8-xk-1lO" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="-1" id="7Ci-Oq-NPm"/>
+                    <constraint firstItem="44B-V0-aye" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="93j-mH-nJW"/>
                     <constraint firstItem="aty-gc-yaL" firstAttribute="top" secondItem="hmT-Xw-CIm" secondAttribute="bottom" id="Amn-TG-F8B"/>
                     <constraint firstAttribute="trailing" secondItem="hmT-Xw-CIm" secondAttribute="trailing" id="Asm-3j-80H"/>
                     <constraint firstItem="aty-gc-yaL" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="JgL-1l-gVW"/>
-                    <constraint firstAttribute="trailing" secondItem="JA8-xk-1lO" secondAttribute="trailing" constant="-1" id="MBN-Sy-aJt"/>
+                    <constraint firstAttribute="bottom" secondItem="44B-V0-aye" secondAttribute="bottom" id="Ke4-9w-PDM"/>
+                    <constraint firstAttribute="trailing" secondItem="44B-V0-aye" secondAttribute="trailing" id="Pe3-Jo-Kqq"/>
+                    <constraint firstItem="44B-V0-aye" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="TLi-o6-u0e"/>
                     <constraint firstItem="hmT-Xw-CIm" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="dXn-m7-POc"/>
-                    <constraint firstAttribute="bottom" secondItem="JA8-xk-1lO" secondAttribute="bottom" constant="-1" id="fY4-h9-7Jl"/>
-                    <constraint firstItem="JA8-xk-1lO" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="-1" id="ik4-tH-Kkp"/>
                     <constraint firstAttribute="trailing" secondItem="aty-gc-yaL" secondAttribute="trailing" id="kdi-Wf-TE7"/>
                     <constraint firstItem="hmT-Xw-CIm" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" id="m6W-bZ-X6v"/>
                 </constraints>

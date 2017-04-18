@@ -21,7 +21,7 @@
 
 - (void)scrollWheel:(NSEvent *)event {
     if (_forwardScrollToParent) {
-        [self.enclosingScrollView scrollWheel:event];
+        // [self.enclosingScrollView scrollWheel:event];
     } else {
         [super scrollWheel:event];
         [self recordInteractionWithThisTab];
