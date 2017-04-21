@@ -139,6 +139,10 @@
     }
 }
 
+- (IBAction)newTab:(id)sender {
+    [self newTab];
+}
+
 - (void)insertTab:(WWTab *)tab afterTab:(WWTab *)tabOrNil {
     NSMutableArray *tabList = self.tabs.mutableCopy;
     NSInteger index = 0;

@@ -36,6 +36,17 @@
                                     <constraint firstAttribute="height" constant="44" id="cMj-tT-Cx3"/>
                                 </constraints>
                             </customView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYS-j6-9h4">
+                                <rect key="frame" x="693" y="32" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NewTab" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="1YT-oJ-HZ6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="newTab:" target="-2" id="l7x-Ym-xye"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="IHs-wD-Ntk" firstAttribute="leading" secondItem="hmT-Xw-CIm" secondAttribute="leading" id="QaT-gn-nqB"/>
@@ -69,6 +80,7 @@
         </window>
     </objects>
     <resources>
+        <image name="NewTab" width="24" height="24"/>
         <image name="TitleBorder" width="4" height="12"/>
     </resources>
 </document>
