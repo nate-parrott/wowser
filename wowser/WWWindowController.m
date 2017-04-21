@@ -125,6 +125,14 @@
     return sorted.lastObject;
 }
 
+- (WWTab *)newTabAfterTab:(WWTab *)sourceTab configuration:(WKWebViewConfiguration *)configuration {
+    WWTab *tab = [WWTab new];
+    tab.initialConfiguration = configuration;
+    [self insertTab:tab afterTab:sourceTab];
+    // TODO: shift the scrollview to reveal this tab, if necessary
+    return tab;
+}
+
 - (void)newTab {
     WWTab *tab = [WWTab new];
     [self insertTab:tab afterTab:nil];

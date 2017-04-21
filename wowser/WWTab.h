@@ -17,6 +17,8 @@
 - (WWTitleCell *)getOrCreateTitleCell;
 - (BOOL)isViewLoaded;
 
+@property (nonatomic) WKWebViewConfiguration *initialConfiguration;
+
 - (void)didInteract;
 @property (nonatomic) CFAbsoluteTime lastInteractionTime;
 

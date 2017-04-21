@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class WWTab;
+@import WebKit;
 
 @interface WWWindowController : NSWindowController
 
@@ -20,5 +21,7 @@
 - (WWTab *)tabForKeyActions;
 - (void)newTab;
 - (void)closeTab;
+
+- (WWTab *)newTabAfterTab:(WWTab *)sourceTab configuration:(WKWebViewConfiguration *)configuration;
 
 @end
