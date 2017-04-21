@@ -18,20 +18,20 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="contentRect" x="196" y="240" width="725" height="417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO" userLabel="Root View">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <rect key="frame" x="0.0" y="0.0" width="725" height="417"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="44B-V0-aye" customClass="WWTabScrollView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="725" height="417"/>
                     </customView>
                     <visualEffectView appearanceType="vibrantLight" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-Xw-CIm">
-                        <rect key="frame" x="0.0" y="206" width="480" height="64"/>
+                        <rect key="frame" x="0.0" y="353" width="725" height="64"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="IHs-wD-Ntk">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="725" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="cMj-tT-Cx3"/>
                                 </constraints>
@@ -45,7 +45,7 @@
                         </constraints>
                     </visualEffectView>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aty-gc-yaL">
-                        <rect key="frame" x="0.0" y="194" width="480" height="12"/>
+                        <rect key="frame" x="0.0" y="341" width="725" height="12"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="TitleBorder" id="j6h-8m-bp7"/>
                     </imageView>
                 </subviews>
@@ -65,6 +65,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="j67-LM-lVq"/>
             </connections>
+            <point key="canvasLocation" x="289.5" y="246.5"/>
         </window>
     </objects>
     <resources>

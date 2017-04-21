@@ -53,8 +53,8 @@
     self.window.titlebarAppearsTransparent = YES;
     self.window.styleMask |=  NSFullSizeContentViewWindowMask;
     
-    self.tabs = @[[WWTab new], [WWTab new], [WWTab new], [WWTab new], [WWTab new]];
-    // self.tabs = @[[WWTab new]];
+    // self.tabs = @[[WWTab new], [WWTab new], [WWTab new], [WWTab new], [WWTab new]];
+    self.tabs = @[[WWTab new]];
     
     // self.scrollView.contentView.postsBoundsChangedNotifications = YES;
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didScroll:) name:NSViewBoundsDidChangeNotification object:self.scrollView.contentView];

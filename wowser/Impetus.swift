@@ -21,16 +21,24 @@ public class Impetus : NSObject {
     
     // MARK: Bounds
     
-    public var minX: CGFloat?
-    public var minY: CGFloat?
-    public var maxX: CGFloat?
-    public var maxY: CGFloat?
+    public var minX: CGFloat? {
+        didSet { ensureInsideBounds() }
+    }
+    public var minY: CGFloat? {
+        didSet { ensureInsideBounds() }
+    }
+    public var maxX: CGFloat? {
+        didSet { ensureInsideBounds() }
+    }
+    public var maxY: CGFloat? {
+        didSet { ensureInsideBounds() }
+    }
     
     func setBounds(minX: CGFloat, minY: CGFloat, maxX: CGFloat, maxY: CGFloat) {
         self.minX = minX
         self.minY = minY
-        self.maxX = maxX
-        self.maxY = maxY
+        self.maxX = max(minX, maxX)
+        self.maxY = max(minY, maxY)
     }
     
     // MARK: Parameters
@@ -97,8 +105,10 @@ public class Impetus : NSObject {
             let decel = friction
             decVelocity = CGPoint(x: decVelocity.x * decel, y: decVelocity.y * decel)
             position = CGPoint(x: position.x + decVelocity.x * timeScale, y: position.y + decVelocity.y * timeScale)
-            let (diff, inBounds) = checkBounds()
-            if (fabs(decVelocity.x) > stopThreshold || fabs(decVelocity.y) > stopThreshold || !inBounds) {
+            let (diff, _) = checkBounds()
+            let nearBounds = dist(p1: position, p2: clampToBounds(pos: position)) < 1
+            
+            if (fabs(decVelocity.x) > stopThreshold || fabs(decVelocity.y) > stopThreshold || !nearBounds) {
                 let reboundAdjust: CGFloat = 2.5
                 if diff.x != 0 {
                     if diff.x * decVelocity.x <= 0 {
@@ -120,9 +130,24 @@ public class Impetus : NSObject {
                     self.decelStepAnim()
                 }
             } else {
+                position = clampToBounds(pos: position)
                 decelerating = false
             }
         }
+    }
+    
+    public func singleXValue() -> CGFloat? {
+        if let a = minX, let b = maxX, a == b {
+            return a
+        }
+        return nil
+    }
+    
+    public func singleYValue() -> CGFloat? {
+        if let a = minY, let b = maxY, a == b {
+            return a
+        }
+        return nil
     }
     
     private var requestedTick = false
@@ -134,6 +159,23 @@ public class Impetus : NSObject {
                 self.tick()
             }
         }
+    }
+    
+    private func ensureInsideBounds() {
+        position = clampToBounds(pos: position)
+    }
+    
+    private func dist(p1: CGPoint, p2: CGPoint) -> CGFloat {
+        return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))
+    }
+    
+    private func clampToBounds(pos: CGPoint) -> CGPoint {
+        var p = pos
+        if let m = minX { p.x = max(m, p.x) }
+        if let m = maxX { p.x = min(m, p.x) }
+        if let m = minY { p.y = max(m, p.y) }
+        if let m = maxY { p.y = min(m, p.y) }
+        return p
     }
     
     private func requestAnimFrame(callback: @escaping (() -> ())) {
@@ -199,7 +241,8 @@ public class Impetus : NSObject {
     }
     
     private func dragOutOfBoundsMultiplier(val: CGFloat) -> CGFloat {
-        return 0.000005 * pow(val, 2) + 0.0001 * val + 0.55
+        return (0.00001 * pow(val, 2) + 0.0002 * val + 0.7)
+        // return 0.000005 * pow(val, 2) + 0.0001 * val + 0.55
     }
     
     private var decVelocity = CGPoint.zero
