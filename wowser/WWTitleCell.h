@@ -13,6 +13,8 @@
 @protocol WWTitleCellDelegate
 
 - (void)titleCell:(WWTitleCell *)titleCell didTypeReturnWithText:(NSString *)text;
+- (void)titleCellWantsToCloseTab:(WWTitleCell *)titleCell;
+- (void)titleCell:(WWTitleCell *)titleCell wantsTabMenuWithSource:(NSView *)sourceView;
 
 @end
 

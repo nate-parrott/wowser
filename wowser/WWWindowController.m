@@ -133,6 +133,13 @@
     return tab;
 }
 
+- (void)closeTab:(WWTab *)tab {
+    NSMutableArray *tabList = self.tabs.mutableCopy;
+    [tabList removeObject:tab];
+    self.tabs = tabList;
+    [tab didClose];
+}
+
 - (void)newTab {
     WWTab *tab = [WWTab new];
     [self insertTab:tab afterTab:nil];
@@ -141,9 +148,7 @@
 - (void)closeTab {
     WWTab *keyTab = [self tabForKeyActions];
     if (keyTab) {
-        NSMutableArray *tabList = self.tabs.mutableCopy;
-        [tabList removeObject:keyTab];
-        self.tabs = tabList;
+        [self closeTab:keyTab];
     }
 }
 

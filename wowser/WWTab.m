@@ -48,6 +48,14 @@
     return _view;
 }
 
+- (void)close {
+    [[self windowController] closeTab:self];
+}
+
+- (void)didClose {
+    
+}
+
 - (WKWebViewConfiguration *)createConfiguration {
     if (self.initialConfiguration) return self.initialConfiguration;
     
@@ -76,6 +84,14 @@
 - (void)titleCell:(WWTitleCell *)titleCell didTypeReturnWithText:(NSString *)text {
     [self didInteract];
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL withNaturalString:text]]];
+}
+
+- (void)titleCellWantsToCloseTab:(WWTitleCell *)titleCell {
+    [self close];
+}
+
+- (void)titleCell:(WWTitleCell *)titleCell wantsTabMenuWithSource:(NSView *)sourceView {
+    // TODO
 }
 
 //#pragma mark Navigation delegate
@@ -108,23 +124,23 @@
 }
 
 - (void)webView:(WKWebView *)webView runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSArray<NSURL *> * _Nullable))completionHandler {
-    
+    // TODO
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
-    
+    // TODO
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
-    
+    // TODO
 }
 
 - (void)webViewDidClose:(WKWebView *)webView {
-    
+    [self close];
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable result))completionHandler {
-    
+    // TODO
 }
 
 @end

@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSTextField *title, *url;
 @property (nonatomic) NSImageView *divider;
+@property (nonatomic) NSButton *closeButton, *menuButton;
 
 @property (nonatomic) WWTransformView *titleTransformView, *urlTransformView;
 @property (nonatomic) BOOL urlFieldFocused, mouseHovering, urlVisible;
@@ -68,7 +69,17 @@
     self.divider = [NSImageView imageViewWithImage:[NSImage imageNamed:@"TabDivider"]];
     [self addSubview:self.divider];
     
+    self.closeButton = [NSButton buttonWithImage:[NSImage imageNamed:@"Close"] target:self action:@selector(close:)];
+    self.menuButton = [NSButton buttonWithImage:[NSImage imageNamed:@"Chevron"] target:self action:@selector(showMenu:)];
+    for (NSButton *b in @[self.closeButton, self.menuButton]) {
+        [self addSubview:b];
+        b.bordered = NO;
+        b.alphaValue = 0.35;
+    }
+    
     self.urlVisible = NO;
+    
+    self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     
     return self;
 }
@@ -76,9 +87,12 @@
 - (void)layout {
     [super layout];
     
-    // self.title.frame = NSMakeRect(0, 0, self.bounds.size.width, 30);
+    CGFloat buttonWidth = self.bounds.size.height;
+    self.closeButton.frame = NSMakeRect(0, 0, buttonWidth, self.bounds.size.height);
+    self.menuButton.frame = NSMakeRect(self.bounds.size.width - buttonWidth, 0, buttonWidth, self.bounds.size.height);
+    
     self.titleTransformView.frame = NSMakeRect(0, 0, self.bounds.size.width, 30 + 15);
-    self.urlTransformView.frame = NSMakeRect(0, 0, self.bounds.size.width, 29);
+    self.urlTransformView.frame = NSMakeRect(buttonWidth, 0, self.bounds.size.width - buttonWidth * 2, 29);
     self.titleTransformView.insets = NSEdgeInsetsMake(15, 0, 0, 0);
     
     CGSize imageSize = self.divider.image.size;
@@ -119,6 +133,8 @@
         context.allowsImplicitAnimation = YES;
         self.urlTransformView.alphaValue = urlVisible ? 1 : 0;
         self.titleTransformView.alphaValue = urlVisible ? 0.5 : 1;
+        self.menuButton.alphaValue = urlVisible ? 0.35 : 0;
+        self.closeButton.alphaValue = urlVisible ? 0.35 : 0;
         if (urlVisible) {
             self.urlTransformView.animator.transform = CATransform3DIdentity;
             self.titleTransformView.animator.transform = CATransform3DTranslate(CATransform3DMakeScale(0.8, 0.8, 1), 0, 20, 0);
@@ -158,6 +174,16 @@
     if (!self.urlFieldFocused) {
         self.url.stringValue = urlString;
     }
+}
+
+#pragma mark Actions
+
+- (IBAction)close:(id)sender {
+    [self.delegate titleCellWantsToCloseTab:self];
+}
+
+- (IBAction)showMenu:(id)sender {
+    [self.delegate titleCell:self wantsTabMenuWithSource:sender];
 }
 
 @end

@@ -23,5 +23,6 @@
 - (void)closeTab;
 
 - (WWTab *)newTabAfterTab:(WWTab *)sourceTab configuration:(WKWebViewConfiguration *)configuration;
+- (void)closeTab:(WWTab *)tab;
 
 @end

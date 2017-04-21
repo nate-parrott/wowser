@@ -17,6 +17,8 @@
 - (WWTitleCell *)getOrCreateTitleCell;
 - (BOOL)isViewLoaded;
 
+- (void)didClose;
+
 @property (nonatomic) WKWebViewConfiguration *initialConfiguration;
 
 - (void)didInteract;
