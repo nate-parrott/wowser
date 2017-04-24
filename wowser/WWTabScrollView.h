@@ -17,4 +17,6 @@
 
 @property (nonatomic, copy) void (^onScroll)(CGPoint offset);
 
+- (void)ensureTabIsVisible:(WWTab *)tab;
+
 @end

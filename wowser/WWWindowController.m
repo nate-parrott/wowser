@@ -169,6 +169,7 @@
     }
     [tabList insertObject:tab atIndex:index];
     self.tabs = tabList;
+    [self.scrollView ensureTabIsVisible:tab];
 }
 
 #pragma mark Layout

@@ -36,6 +36,9 @@
 
 - (void)setContentOffset:(CGPoint)contentOffset {
     _contentOffset = contentOffset;
+    if (sqrt(pow(_impetus.position.x - contentOffset.x, 2) + pow(_impetus.position.y - contentOffset.y, 2)) > 1) {
+        _impetus.position = contentOffset;
+    }
     [self _updateDocumentFrame];
     if (self.onScroll) self.onScroll(contentOffset);
 }
@@ -68,6 +71,15 @@
     
     Impetus *impetus = [self impetus];
     [impetus setBoundsWithMinX:0 minY:0 maxX:self.contentSize.width - self.bounds.size.width maxY:self.contentSize.height - self.bounds.size.height];
+}
+
+- (void)ensureTabIsVisible:(WWTab *)tab {
+    [self layout];
+    WWTabView *tabView = [tab getOrCreateView];
+    CGPoint offset = self.contentOffset;
+    offset.x = MIN(offset.x, tabView.frame.origin.x);
+    offset.x = MAX(offset.x, tabView.frame.origin.x + tabView.frame.size.width - self.bounds.size.width);
+    self.contentOffset = offset;
 }
 
 - (void)setContentSize:(CGSize)contentSize {
