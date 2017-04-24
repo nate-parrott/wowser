@@ -17,6 +17,7 @@
 @property (nonatomic) WWReplicatorView *repl;
 @property (nonatomic) WKWebView *webView;
 @property (nonatomic, weak) WWTab *tab;
+@property (nonatomic) NSView *rightDivider;
 
 @end
 
@@ -36,6 +37,12 @@
     CAReplicatorLayer *r = [_repl replicatorLayer];
     r.instanceCount = 2;
     r.instanceTransform = CATransform3DMakeTranslation(0, 64, -1);
+    
+    self.rightDivider = [NSView new];
+    [self addSubview:self.rightDivider];
+    self.rightDivider.wantsLayer = YES;
+    self.rightDivider.layer.backgroundColor = [NSColor colorWithWhite:0.5 alpha:0.15].CGColor;
+    self.rightDivider.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
         
     return self;
 }
@@ -45,6 +52,7 @@
     self.repl.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
     // self.repl.layer.transform = CATransform3DMakeTranslation(0, 40, 0);
     self.webView.frame = CGRectMake(0, 0, self.repl.bounds.size.width, self.repl.bounds.size.height - 64);
+    self.rightDivider.frame = NSMakeRect(self.bounds.size.width - 1, 0, 1, self.bounds.size.height);
 }
 
 @end
