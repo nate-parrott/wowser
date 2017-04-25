@@ -26,6 +26,8 @@
 - (instancetype)initWithWebView:(WKWebView *)webView tab:(WWTab *)tab {
     self = [super init];
     
+    self.wantsLayer = YES;
+    
     self.tab = tab;
     
     self.repl = [WWReplicatorView new];

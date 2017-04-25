@@ -56,8 +56,6 @@
     // self.tabs = @[[WWTab new], [WWTab new], [WWTab new], [WWTab new], [WWTab new]];
     self.tabs = @[[WWTab new]];
     
-    // self.scrollView.contentView.postsBoundsChangedNotifications = YES;
-    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didScroll:) name:NSViewBoundsDidChangeNotification object:self.scrollView.contentView];
     __weak WWWindowController *weakSelf = self;
     self.scrollView.onScroll = ^(CGPoint p) {
         [weakSelf updateTitleBarLayout];
@@ -65,8 +63,12 @@
 }
 
 - (void)setTabs:(NSArray<WWTab *> *)tabs {
+    [self setTabs:tabs animated:NO];
+}
+
+- (void)setTabs:(NSArray<WWTab *> *)tabs animated:(BOOL)animated {
     _tabs = tabs;
-    self.scrollView.tabs = tabs;
+    [self.scrollView setTabs:tabs animated:animated];
     self.titleCells = [tabs map:^id(id obj) {
         return [obj getOrCreateTitleCell];
     }];
@@ -128,7 +130,7 @@
 - (WWTab *)newTabAfterTab:(WWTab *)sourceTab configuration:(WKWebViewConfiguration *)configuration {
     WWTab *tab = [WWTab new];
     tab.initialConfiguration = configuration;
-    [self insertTab:tab afterTab:sourceTab];
+    [self insertTab:tab afterTab:sourceTab animated:YES];
     // TODO: shift the scrollview to reveal this tab, if necessary
     return tab;
 }
@@ -136,13 +138,13 @@
 - (void)closeTab:(WWTab *)tab {
     NSMutableArray *tabList = self.tabs.mutableCopy;
     [tabList removeObject:tab];
-    self.tabs = tabList;
+    [self setTabs:tabList animated:YES];
     [tab didClose];
 }
 
 - (void)newTab {
     WWTab *tab = [WWTab new];
-    [self insertTab:tab afterTab:nil];
+    [self insertTab:tab afterTab:nil animated:YES];
 }
 
 - (void)closeTab {
@@ -158,7 +160,7 @@
     [self newTab];
 }
 
-- (void)insertTab:(WWTab *)tab afterTab:(WWTab *)tabOrNil {
+- (void)insertTab:(WWTab *)tab afterTab:(WWTab *)tabOrNil animated:(BOOL)animated {
     NSMutableArray *tabList = self.tabs.mutableCopy;
     NSInteger index = 0;
     if (tabOrNil) {
@@ -170,8 +172,8 @@
         }
     }
     [tabList insertObject:tab atIndex:index];
-    self.tabs = tabList;
-    [self.scrollView ensureTabIsVisible:tab];
+    [self setTabs:tabList animated:animated];
+    [self.scrollView ensureTabIsVisible:tab animated:animated];
 }
 
 #pragma mark Layout

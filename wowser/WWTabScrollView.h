@@ -17,6 +17,9 @@
 
 @property (nonatomic, copy) void (^onScroll)(CGPoint offset);
 
-- (void)ensureTabIsVisible:(WWTab *)tab;
+- (void)ensureTabIsVisible:(WWTab *)tab animated:(BOOL)animated;
+- (void)setTabs:(NSArray<WWTab *> *)tabs animated:(BOOL)animated;
+
++ (NSTimeInterval)animationDuration;
 
 @end
