@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "wowser/WWTabScrollView.m"
-            timestampString = "514711743.969146"
+            timestampString = "514836298.793543"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "-setContentOffset:"
             landmarkType = "7">
          </BreakpointContent>

@@ -32,6 +32,7 @@
     [self addSubview:self.documentView];
     self.documentView.wantsLayer = YES;
     self.documentView.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+    self.allowedTouchTypes |= NSTouchTypeMaskIndirect;
 }
 
 - (void)setContentOffset:(CGPoint)contentOffset {
@@ -98,10 +99,6 @@
         }];
     }
     return _impetus;
-}
-
-- (BOOL)acceptsTouchEvents {
-    return YES;
 }
 
 - (void)touchesBeganWithEvent:(NSEvent *)event {
