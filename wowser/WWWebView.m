@@ -17,7 +17,13 @@
 
 @end
 
+
 @implementation WWWebView
+
+- (void)viewDidMoveToWindow {
+    [super viewDidMoveToWindow];
+    self.allowedTouchTypes |= NSTouchTypeMaskIndirect;
+}
 
 - (void)scrollWheel:(NSEvent *)event {
     if (_forwardScrollToParent) {
@@ -26,10 +32,6 @@
         [super scrollWheel:event];
         [self recordInteractionWithThisTab];
     }
-}
-
-- (BOOL)acceptsTouchEvents {
-    return YES;
 }
 
 - (void)touchesBeganWithEvent:(NSEvent *)event {
