@@ -25,14 +25,8 @@
 
 - (void)openWindowIfNoneExists {
     if ([[NSApp windows] count] == 0) {
-        [self newBrowserWindow];
+        [self newBrowserWindow:nil];
     }
-}
-
-- (void)newBrowserWindow {
-    WWWindowController *win = [[WWWindowController alloc] initWithWindowNibName:@"WWWindowController"];
-    [win.window makeKeyAndOrderFront:nil];
-    [NSApp activateIgnoringOtherApps:YES];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -47,6 +41,18 @@
 - (IBAction)closeTab:(id)sender {
     WWWindowController *controller = [WWWindowController controllerForWindow:[NSApp keyWindow]];
     [controller closeTab];
+}
+
+- (IBAction)newBrowserWindow:(id)sender {
+    WWWindowController *win = [[WWWindowController alloc] initWithWindowNibName:@"WWWindowController"];
+    [win.window makeKeyAndOrderFront:nil];
+    [NSApp activateIgnoringOtherApps:YES];
+}
+
+- (IBAction)closeWindow:(id)sender {
+    if ([[[NSApp keyWindow] windowController] isKindOfClass:[WWWindowController class]]){
+        [[NSApp keyWindow] close];
+    }
 }
 
 @end

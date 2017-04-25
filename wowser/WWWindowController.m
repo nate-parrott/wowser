@@ -149,6 +149,8 @@
     WWTab *keyTab = [self tabForKeyActions];
     if (keyTab) {
         [self closeTab:keyTab];
+    } else {
+        [self.window close];
     }
 }
 

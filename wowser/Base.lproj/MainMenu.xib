@@ -66,12 +66,12 @@
                         <items>
                             <menuItem title="New Window" keyEquivalent="n" id="yAa-4K-pZ1">
                                 <connections>
-                                    <action selector="newDocument:" target="-1" id="Vce-cn-EIb"/>
+                                    <action selector="newBrowserWindow:" target="Voe-Tx-rLC" id="Xyl-C9-NbI"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Close Window" keyEquivalent="W" id="OXa-AK-s4U">
                                 <connections>
-                                    <action selector="performClose:" target="-1" id="i3r-E1-NUM"/>
+                                    <action selector="closeWindow:" target="Voe-Tx-rLC" id="19F-a9-a6g"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="zgv-cn-3EY"/>
