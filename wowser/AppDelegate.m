@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "WWWindowController.h"
+#import "wowser-Swift.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,7 @@
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [URLCompleterTests testAll];
     [self openWindowIfNoneExists];
 }
 
