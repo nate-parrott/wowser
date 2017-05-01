@@ -23,6 +23,7 @@
 		5F733F231EA0631E00D413BB /* ConvenienceCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F221EA0631E00D413BB /* ConvenienceCategories.m */; };
 		5F733F261EA32D9500D413BB /* WWTransformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F251EA32D9500D413BB /* WWTransformView.m */; };
 		5F733F291EA46C4700D413BB /* NSURL+NaturalURLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */; };
+		5F7647F51EB7B6FD0025C4F9 /* WWURLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7647F41EB7B6FD0025C4F9 /* WWURLTextField.m */; };
 		5FA8DBE51EB0679100D33F23 /* URLCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8DBE41EB0679100D33F23 /* URLCompleter.swift */; };
 		5FC3AADD1EA6BA3E00D69DC4 /* Impetus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,8 @@
 		5F733F251EA32D9500D413BB /* WWTransformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWTransformView.m; sourceTree = "<group>"; };
 		5F733F271EA46C4700D413BB /* NSURL+NaturalURLEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+NaturalURLEntry.h"; sourceTree = "<group>"; };
 		5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NaturalURLEntry.m"; sourceTree = "<group>"; };
+		5F7647F31EB7B6FD0025C4F9 /* WWURLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWURLTextField.h; sourceTree = "<group>"; };
+		5F7647F41EB7B6FD0025C4F9 /* WWURLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWURLTextField.m; sourceTree = "<group>"; };
 		5FA8DBE41EB0679100D33F23 /* URLCompleter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCompleter.swift; sourceTree = "<group>"; };
 		5FC3AADB1EA6BA3E00D69DC4 /* wowser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wowser-Bridging-Header.h"; sourceTree = "<group>"; };
 		5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Impetus.swift; sourceTree = "<group>"; };
@@ -107,28 +110,13 @@
 			children = (
 				5F2BAF101E9F1F5D00DD9B4B /* AppDelegate.h */,
 				5F2BAF111E9F1F5D00DD9B4B /* AppDelegate.m */,
-				5F2BAF2B1E9F217A00DD9B4B /* WWWindowController.h */,
-				5F2BAF2C1E9F217A00DD9B4B /* WWWindowController.m */,
-				5F2BAF2D1E9F217A00DD9B4B /* WWWindowController.xib */,
-				5F2BAF331E9F2A9500DD9B4B /* WWTabScrollView.h */,
-				5F2BAF341E9F2A9500DD9B4B /* WWTabScrollView.m */,
+				5F7647F71EB7B96A0025C4F9 /* Windows */,
 				5F2BAF301E9F22DB00DD9B4B /* WWTab.h */,
 				5F2BAF311E9F22DB00DD9B4B /* WWTab.m */,
-				5F2BAF391E9F689C00DD9B4B /* WWTabView.h */,
-				5F2BAF3A1E9F689C00DD9B4B /* WWTabView.m */,
-				5F2BAF3C1E9F6B8500DD9B4B /* WWReplicatorView.h */,
-				5F2BAF3D1E9F6B8500DD9B4B /* WWReplicatorView.m */,
-				5F2BAF361E9F419B00DD9B4B /* WWWebView.h */,
-				5F2BAF371E9F419B00DD9B4B /* WWWebView.m */,
-				5F733F1E1EA0541C00D413BB /* WWTitleCell.h */,
-				5F733F1F1EA0541C00D413BB /* WWTitleCell.m */,
-				5F733F211EA0631E00D413BB /* ConvenienceCategories.h */,
-				5F733F221EA0631E00D413BB /* ConvenienceCategories.m */,
-				5F733F241EA32D9500D413BB /* WWTransformView.h */,
-				5F733F251EA32D9500D413BB /* WWTransformView.m */,
-				5F733F271EA46C4700D413BB /* NSURL+NaturalURLEntry.h */,
-				5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */,
-				5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */,
+				5F7647F81EB7B9750025C4F9 /* Tab content views */,
+				5F7647F61EB7B95F0025C4F9 /* Tab titles */,
+				5F7647F91EB7B97E0025C4F9 /* Utility views */,
+				5F7647FA1EB7B98C0025C4F9 /* Utilities */,
 				5FA8DBE41EB0679100D33F23 /* URLCompleter.swift */,
 				5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */,
 				5F2BAF181E9F1F5D00DD9B4B /* MainMenu.xib */,
@@ -145,6 +133,63 @@
 				5F2BAF141E9F1F5D00DD9B4B /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5F7647F61EB7B95F0025C4F9 /* Tab titles */ = {
+			isa = PBXGroup;
+			children = (
+				5F733F1E1EA0541C00D413BB /* WWTitleCell.h */,
+				5F733F1F1EA0541C00D413BB /* WWTitleCell.m */,
+				5F7647F31EB7B6FD0025C4F9 /* WWURLTextField.h */,
+				5F7647F41EB7B6FD0025C4F9 /* WWURLTextField.m */,
+			);
+			name = "Tab titles";
+			sourceTree = "<group>";
+		};
+		5F7647F71EB7B96A0025C4F9 /* Windows */ = {
+			isa = PBXGroup;
+			children = (
+				5F2BAF2B1E9F217A00DD9B4B /* WWWindowController.h */,
+				5F2BAF2C1E9F217A00DD9B4B /* WWWindowController.m */,
+				5F2BAF2D1E9F217A00DD9B4B /* WWWindowController.xib */,
+				5F2BAF331E9F2A9500DD9B4B /* WWTabScrollView.h */,
+				5F2BAF341E9F2A9500DD9B4B /* WWTabScrollView.m */,
+			);
+			name = Windows;
+			sourceTree = "<group>";
+		};
+		5F7647F81EB7B9750025C4F9 /* Tab content views */ = {
+			isa = PBXGroup;
+			children = (
+				5F2BAF391E9F689C00DD9B4B /* WWTabView.h */,
+				5F2BAF3A1E9F689C00DD9B4B /* WWTabView.m */,
+				5F2BAF361E9F419B00DD9B4B /* WWWebView.h */,
+				5F2BAF371E9F419B00DD9B4B /* WWWebView.m */,
+			);
+			name = "Tab content views";
+			sourceTree = "<group>";
+		};
+		5F7647F91EB7B97E0025C4F9 /* Utility views */ = {
+			isa = PBXGroup;
+			children = (
+				5F733F241EA32D9500D413BB /* WWTransformView.h */,
+				5F733F251EA32D9500D413BB /* WWTransformView.m */,
+				5F2BAF3C1E9F6B8500DD9B4B /* WWReplicatorView.h */,
+				5F2BAF3D1E9F6B8500DD9B4B /* WWReplicatorView.m */,
+			);
+			name = "Utility views";
+			sourceTree = "<group>";
+		};
+		5F7647FA1EB7B98C0025C4F9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5F733F271EA46C4700D413BB /* NSURL+NaturalURLEntry.h */,
+				5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */,
+				5F733F211EA0631E00D413BB /* ConvenienceCategories.h */,
+				5F733F221EA0631E00D413BB /* ConvenienceCategories.m */,
+				5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		5FD5D7F300DB88A9A6AA4E16 /* Pods */ = {
@@ -292,6 +337,7 @@
 				5F2BAF2E1E9F217A00DD9B4B /* WWWindowController.m in Sources */,
 				5F2BAF381E9F419B00DD9B4B /* WWWebView.m in Sources */,
 				5FC3AADD1EA6BA3E00D69DC4 /* Impetus.swift in Sources */,
+				5F7647F51EB7B6FD0025C4F9 /* WWURLTextField.m in Sources */,
 				5F2BAF121E9F1F5D00DD9B4B /* AppDelegate.m in Sources */,
 				5F2BAF321E9F22DB00DD9B4B /* WWTab.m in Sources */,
 			);

@@ -11,6 +11,9 @@
 @class WWTab;
 @import WebKit;
 
+// this event is dispatcher per-window, not per-window-controller
+FOUNDATION_EXPORT NSString *const WWWindowDidChangeFirstResponderNotification;
+
 @interface WWWindowController : NSWindowController
 
 + (BOOL)doOpenWindowsExist;

@@ -13,7 +13,11 @@
 #import "WWTitleCell.h"
 #import "WWTabView.h"
 
-@interface WWWindowController () <NSWindowDelegate>
+NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChangeFirstResponderNotification";
+
+@interface WWWindowController () <NSWindowDelegate> {
+    NSResponder *_prevFirstResponder;
+}
 
 @property (nonatomic) IBOutlet WWTabScrollView *scrollView;
 @property (nonatomic) IBOutlet NSView *titleBar;
@@ -60,6 +64,17 @@
     self.scrollView.onScroll = ^(CGPoint p) {
         [weakSelf updateTitleBarLayout];
     };
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidUpdate) name:NSWindowDidUpdateNotification object:self.window];
+}
+
+- (void)windowDidUpdate {
+    NSResponder *resp = [self.window firstResponder];
+    if (_prevFirstResponder != resp) {
+        _prevFirstResponder = resp;
+        [[NSNotificationCenter defaultCenter] postNotificationName:WWWindowDidChangeFirstResponderNotification object:self.window];
+        NSLog(@"new first responder: %@", resp);
+    }
 }
 
 - (void)setTabs:(NSArray<WWTab *> *)tabs {

@@ -8,6 +8,7 @@
 
 #import "WWTitleCell.h"
 #import "WWTransformView.h"
+#import "WWWindowController.h"
 @import QuartzCore;
 
 @interface WWTitleCell () <NSTextFieldDelegate> {
@@ -84,6 +85,19 @@
     return self;
 }
 
+- (void)viewWillMoveToWindow:(NSWindow *)newWindow {
+    [super viewWillMoveToWindow:newWindow];
+    
+    if (newWindow == nil && self.window) {
+        // remove the observer for the window we're leaving:
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:WWWindowDidChangeFirstResponderNotification object:self.window];
+    }
+    
+    if (newWindow) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(firstResponderChanged) name:WWWindowDidChangeFirstResponderNotification object:newWindow];
+    }
+}
+
 - (void)layout {
     [super layout];
     
@@ -106,6 +120,16 @@
     }
     _trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds] options:NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways owner:self userInfo:nil];
     [self addTrackingArea:_trackingArea];
+}
+
+- (void)firstResponderChanged {
+    NSResponder *responder = self.window.firstResponder;
+    if ([responder isKindOfClass:[NSView class]]) {
+        NSView *responderView = (NSView *)responder;
+        self.urlFieldFocused = (responderView == self.url || [responderView isDescendantOf:self.url]);
+    } else {
+        self.urlFieldFocused = NO;
+    }
 }
 
 #pragma mark URL visibility
@@ -149,24 +173,27 @@
 
 #pragma mark URL field
 
-- (BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
-    // TODO: can we get a notification when the field is clicked, rather than when it's first typed-into?
-    self.urlFieldFocused = YES;
-    [self setUrlVisible:[self shouldShowUrlField] animated:YES];
-    return YES;
-}
-
-- (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor {
-    self.urlFieldFocused = NO;
-    [self setUrlVisible:[self shouldShowUrlField] animated:YES];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.url.stringValue = self.urlString;
-    });
-    return YES;
+- (void)setUrlFieldFocused:(BOOL)urlFieldFocused {
+    if (urlFieldFocused != _urlFieldFocused) {
+        _urlFieldFocused = urlFieldFocused;
+        [self setUrlVisible:[self shouldShowUrlField] animated:YES];
+        if (urlFieldFocused) {
+            // select all text in the field:
+            [self.url.currentEditor selectAll:nil];
+        } else {
+            // reset the field to show the current url:
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.url.stringValue = self.urlString ? : @"";
+            });
+        }
+    }
 }
 
 - (void)textFieldDidReturn:(NSTextField *)field {
     [self.delegate titleCell:self didTypeReturnWithText:field.stringValue];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.window makeFirstResponder:nil];
+    });
 }
 
 - (void)setUrlString:(NSString *)urlString {
