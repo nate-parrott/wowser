@@ -146,7 +146,6 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
     WWTab *tab = [WWTab new];
     tab.initialConfiguration = configuration;
     [self insertTab:tab afterTab:sourceTab animated:YES];
-    // TODO: shift the scrollview to reveal this tab, if necessary
     return tab;
 }
 
@@ -160,6 +159,8 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
 - (void)newTab {
     WWTab *tab = [WWTab new];
     [self insertTab:tab afterTab:nil animated:YES];
+    WWTitleCell *titleCell = self.titleCells[[self.tabs indexOfObject:tab]];
+    [titleCell focusAndSelectText];
 }
 
 - (void)closeTab {

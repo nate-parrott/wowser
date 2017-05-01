@@ -26,4 +26,6 @@
 @property (nonatomic, weak) id<WWTitleCellDelegate> delegate;
 @property (nonatomic) NSString *urlString;
 
+- (void)focusAndSelectText;
+
 @end

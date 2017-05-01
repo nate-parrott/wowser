@@ -213,4 +213,8 @@
     [self.delegate titleCell:self wantsTabMenuWithSource:sender];
 }
 
+- (void)focusAndSelectText {
+    [self.url becomeFirstResponder];
+}
+
 @end
