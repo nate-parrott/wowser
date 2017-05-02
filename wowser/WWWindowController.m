@@ -58,8 +58,7 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
     self.window.styleMask |=  NSFullSizeContentViewWindowMask;
     
     // self.tabs = @[[WWTab new], [WWTab new], [WWTab new], [WWTab new], [WWTab new]];
-    self.tabs = @[[WWTab new]];
-    [self.tabs.firstObject loadHomepage];
+    self.tabs = @[];
     
     __weak WWWindowController *weakSelf = self;
     self.scrollView.onScroll = ^(CGPoint p) {
@@ -165,6 +164,12 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
     [titleCell focusAndSelectText];
 }
 
+- (void)newTabWithURL:(NSURL *)url {
+    WWTab *tab = [WWTab new];
+    [[[tab getOrCreateView] webView] loadRequest:[NSURLRequest requestWithURL:url]];
+    [self insertTab:tab afterTab:nil animated:YES];
+}
+
 - (void)closeTab {
     WWTab *keyTab = [self tabForKeyActions];
     if (keyTab) {
@@ -192,6 +197,13 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
     [tabList insertObject:tab atIndex:index];
     [self setTabs:tabList animated:animated];
     [self.scrollView ensureTabIsVisible:tab animated:animated];
+}
+
+- (void)ensureAtLeastOneTab {
+    if (self.tabs.count == 0) {
+        self.tabs = @[[WWTab new]];
+        [self.tabs.firstObject loadHomepage];
+    }
 }
 
 #pragma mark Layout

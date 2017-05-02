@@ -23,11 +23,14 @@ FOUNDATION_EXPORT NSString *const WWWindowDidChangeFirstResponderNotification;
 
 - (WWTab *)tabForKeyActions;
 - (void)newTab;
+- (void)newTabWithURL:(NSURL *)url;
 - (void)closeTab;
 
 - (WWTab *)newTabAfterTab:(WWTab *)sourceTab configuration:(WKWebViewConfiguration *)configuration;
 - (void)closeTab:(WWTab *)tab;
 
 - (void)tabSizesDidUpdate;
+
+- (void)ensureAtLeastOneTab;
 
 @end
