@@ -63,7 +63,7 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
     // self.repl.layer.transform = CATransform3DMakeTranslation(0, 40, 0);
     self.webView.frame = CGRectMake(0, 0, self.repl.bounds.size.width, self.repl.bounds.size.height - 64);
     
-    CGFloat dividerWidth = self.mouseIsHoveringOverDivider ? WWTabViewDragHandleWidth : 1;
+    CGFloat dividerWidth = self.mouseIsHoveringOverDivider || _mouseIsDown ? WWTabViewDragHandleWidth : 1;
     self.rightDivider.frame = NSMakeRect(self.bounds.size.width - dividerWidth, 0, dividerWidth, self.bounds.size.height);
 }
 
@@ -98,7 +98,17 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
     CGPoint newPos = [event locationInWindow];
     CGFloat dWidth = newPos.x - _prevMousePos.x;
     _prevMousePos = newPos;
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:0.01];
     self.tab.width += dWidth;
+    [NSAnimationContext endGrouping];
+    
+    [CATransaction commit];
+    
 }
 
 //- (void)mouseMoved:(NSEvent *)event {
@@ -111,22 +121,29 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
 //}
 
 - (void)mouseEntered:(NSEvent *)event {
-    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-        context.allowsImplicitAnimation = YES;
+    if (!_mouseIsDown) {
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+            context.allowsImplicitAnimation = YES;
+            self.mouseIsHoveringOverDivider = YES;
+        } completionHandler:^{
+            
+        }];
+    } else {
         self.mouseIsHoveringOverDivider = YES;
-    } completionHandler:^{
-        
-    }];
+    }
 }
 
 - (void)mouseExited:(NSEvent *)event {
-//    [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-//        context.allowsImplicitAnimation = YES;
-//        self.mouseIsHoveringOverDivider = NO;
-//    } completionHandler:^{
-//        
-//    }];
-    self.mouseIsHoveringOverDivider = NO;
+    if (!_mouseIsDown) {
+        [NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
+            context.allowsImplicitAnimation = YES;
+            self.mouseIsHoveringOverDivider = NO;
+        } completionHandler:^{
+            
+        }];
+    } else {
+        self.mouseIsHoveringOverDivider = NO;
+    }
 }
 
 - (NSView *)hitTest:(NSPoint)point {
