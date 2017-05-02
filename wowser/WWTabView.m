@@ -17,13 +17,17 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
 @interface WWTabView () {
     NSTrackingArea *_resizeTrackingArea;
     BOOL _mouseIsDown;
-    CGPoint _prevMousePos;
+    CGPoint _initialMousePos;
+    CGFloat _initialWidth;
 }
 
 @property (nonatomic) WWReplicatorView *repl;
 @property (nonatomic) WKWebView *webView;
 @property (nonatomic, weak) WWTab *tab;
+
 @property (nonatomic) NSView *rightDivider;
+@property (nonatomic) NSImageView *rightDividerResizeHint;
+
 @property (nonatomic) BOOL mouseIsHoveringOverDivider;
 
 @end
@@ -50,10 +54,14 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
     self.rightDivider = [NSView new];
     [self addSubview:self.rightDivider];
     self.rightDivider.wantsLayer = YES;
-    // self.rightDivider.layer.backgroundColor = [NSColor colorWithWhite:0.5 alpha:0.15].CGColor;
-    self.rightDivider.layer.backgroundColor = [NSColor redColor].CGColor;
+    self.rightDivider.layer.backgroundColor = [NSColor colorWithDeviceRed:0.851 green:0.847 blue:0.847 alpha:1.000].CGColor;
     self.rightDivider.layerContentsRedrawPolicy = NSViewLayerContentsRedrawNever;
-        
+    
+    self.rightDividerResizeHint = [NSImageView new];
+    self.rightDividerResizeHint.image = [NSImage imageNamed:@"ResizeHint"];
+    [self.rightDivider addSubview:self.rightDividerResizeHint];
+    self.rightDividerResizeHint.alphaValue = 0;
+    
     return self;
 }
 
@@ -65,10 +73,13 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
     
     CGFloat dividerWidth = self.mouseIsHoveringOverDivider || _mouseIsDown ? WWTabViewDragHandleWidth : 1;
     self.rightDivider.frame = NSMakeRect(self.bounds.size.width - dividerWidth, 0, dividerWidth, self.bounds.size.height);
+    NSSize dividerHintSize = self.rightDividerResizeHint.image.size;
+    self.rightDividerResizeHint.frame = NSMakeRect(dividerWidth / 2 - dividerHintSize.width/2, self.rightDivider.frame.size.height/2 - dividerHintSize.height/2, dividerHintSize.width, dividerHintSize.height);
 }
 
 - (void)setMouseIsHoveringOverDivider:(BOOL)mouseIsHoveringOverDivider {
     _mouseIsHoveringOverDivider = mouseIsHoveringOverDivider;
+    self.rightDividerResizeHint.alphaValue = mouseIsHoveringOverDivider ? 1 : 0;
     [self setNeedsLayout:YES];
     [self layout];
 }
@@ -81,13 +92,14 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
         [self removeTrackingArea:_resizeTrackingArea];
     }
     NSRect trackingZone = NSMakeRect(self.bounds.size.width - WWTabViewDragHandleWidth, 0, WWTabViewDragHandleWidth, self.bounds.size.height);
-    _resizeTrackingArea = [[NSTrackingArea alloc] initWithRect:trackingZone options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways owner:self userInfo:nil];
+    _resizeTrackingArea = [[NSTrackingArea alloc] initWithRect:trackingZone options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveAlways | NSTrackingCursorUpdate owner:self userInfo:nil];
     [self addTrackingArea:_resizeTrackingArea];
 }
 
 - (void)mouseDown:(NSEvent *)event {
     _mouseIsDown = YES;
-    _prevMousePos = [event locationInWindow];
+    _initialMousePos = [event locationInWindow];
+    _initialWidth = self.tab.width;
 }
 
 - (void)mouseUp:(NSEvent *)event {
@@ -96,29 +108,18 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
 
 - (void)mouseDragged:(NSEvent *)event {
     CGPoint newPos = [event locationInWindow];
-    CGFloat dWidth = newPos.x - _prevMousePos.x;
-    _prevMousePos = newPos;
     
     [CATransaction begin];
     [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:0.01];
-    self.tab.width += dWidth;
+    self.tab.width = _initialWidth + newPos.x - _initialMousePos.x;
     [NSAnimationContext endGrouping];
     
     [CATransaction commit];
     
 }
-
-//- (void)mouseMoved:(NSEvent *)event {
-//    if (_mouseIsDown) {
-//        CGPoint newPos = [event locationInWindow];
-//        CGFloat dWidth = newPos.x - _prevMousePos.x;
-//        _prevMousePos = newPos;
-//        self.tab.width += dWidth;
-//    }
-//}
 
 - (void)mouseEntered:(NSEvent *)event {
     if (!_mouseIsDown) {
@@ -146,9 +147,13 @@ static const CGFloat WWTabViewDragHandleWidth = 10;
     }
 }
 
+- (void)cursorUpdate:(NSEvent *)event {
+    [[NSCursor resizeLeftRightCursor] set];
+}
+
 - (NSView *)hitTest:(NSPoint)point {
     NSView *v = [super hitTest:point];
-    if (v == self.rightDivider) {
+    if ([v isDescendantOf:self.rightDivider]) {
         return self;
     } else {
         return v;
