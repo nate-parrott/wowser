@@ -24,6 +24,12 @@
 
 @implementation WWTab
 
+- (instancetype)init {
+    self = [super init];
+    self.width = 400;
+    return self;
+}
+
 - (WWTabView *)getOrCreateView {
     if (!_view) {
         _webView = [[WWWebView alloc] initWithFrame:CGRectZero configuration:[self createConfiguration]];
@@ -46,6 +52,10 @@
         }];
     }
     return _view;
+}
+
+- (void)loadHomepage {
+    [[self getOrCreateView].webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://google.com"]]];
 }
 
 - (void)close {
@@ -77,6 +87,14 @@
 
 - (WWWindowController *)windowController {
     return [WWWindowController controllerForWindow:_view.window];
+}
+
+- (void)setWidth:(CGFloat)width {
+    CGFloat maxWidth = [[[self windowController] window] screen].frame.size.width;
+    CGFloat minWidth = 400;
+    width = MAX(minWidth, MIN(maxWidth, width));
+    _width = width;
+    [[self windowController] tabSizesDidUpdate];
 }
 
 #pragma mark Title cell delegate

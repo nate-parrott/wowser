@@ -16,8 +16,11 @@
 - (WWTabView *)getOrCreateView;
 - (WWTitleCell *)getOrCreateTitleCell;
 - (BOOL)isViewLoaded;
+- (void)loadHomepage;
 
 - (void)didClose;
+
+@property (nonatomic) CGFloat width;
 
 @property (nonatomic) WKWebViewConfiguration *initialConfiguration;
 

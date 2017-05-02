@@ -107,8 +107,8 @@
     NSInteger height = self.bounds.size.height;
     for (WWTab *tab in self.tabs) {
         NSView *v = [tab getOrCreateView];
-        v.frame = NSMakeRect(x, 0, 400, height);
-        x += 400;
+        v.frame = NSMakeRect(x, 0, tab.width, height);
+        x += tab.width;
     }
     return x;
 }

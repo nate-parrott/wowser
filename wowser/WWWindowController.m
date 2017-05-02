@@ -59,6 +59,7 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
     
     // self.tabs = @[[WWTab new], [WWTab new], [WWTab new], [WWTab new], [WWTab new]];
     self.tabs = @[[WWTab new]];
+    [self.tabs.firstObject loadHomepage];
     
     __weak WWWindowController *weakSelf = self;
     self.scrollView.onScroll = ^(CGPoint p) {
@@ -73,7 +74,7 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
     if (_prevFirstResponder != resp) {
         _prevFirstResponder = resp;
         [[NSNotificationCenter defaultCenter] postNotificationName:WWWindowDidChangeFirstResponderNotification object:self.window];
-        NSLog(@"new first responder: %@", resp);
+        // NSLog(@"new first responder: %@", resp);
     }
 }
 
@@ -159,6 +160,7 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
 - (void)newTab {
     WWTab *tab = [WWTab new];
     [self insertTab:tab afterTab:nil animated:YES];
+    [tab loadHomepage];
     WWTitleCell *titleCell = self.titleCells[[self.tabs indexOfObject:tab]];
     [titleCell focusAndSelectText];
 }
@@ -211,10 +213,24 @@ NSString *const WWWindowDidChangeFirstResponderNotification = @"WWWindowDidChang
 
 - (void)updateTitleBarLayout {
     CGFloat x = -self.scrollView.contentOffset.x;
-    for (WWTitleCell *cell in self.titleCells) {
-        cell.frame = NSMakeRect(x, 0, 400, self.titleBar.bounds.size.height);
-        x += 400;
+    
+    NSArray *titleCells = self.titleCells;
+    NSArray *tabs = self.tabs;
+    
+    for (NSInteger i=0; i<tabs.count; i++) {
+        if (i < titleCells.count) {
+            WWTitleCell *cell = titleCells[i];
+            WWTab *tab = tabs[i];
+            cell.frame = NSMakeRect(x, 0, tab.width, self.titleBar.bounds.size.height);
+            x += tab.width;
+        }
     }
+}
+
+- (void)tabSizesDidUpdate {
+    [self.scrollView setNeedsLayout:YES];
+    [self.scrollView layout];
+    [self updateTitleBarLayout];
 }
 
 @end
