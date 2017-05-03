@@ -1,12 +1,23 @@
 PODS:
   - KVOController (1.2.0)
+  - Realm (2.2.0):
+    - Realm/Headers (= 2.2.0)
+  - Realm/Headers (2.2.0)
+  - RealmSwift (2.2.0):
+    - Realm (= 2.2.0)
+  - SortedSet (3.0.2)
 
 DEPENDENCIES:
   - KVOController
+  - RealmSwift
+  - SortedSet
 
 SPEC CHECKSUMS:
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  Realm: d95b8fb34c83f1e764b66d319277a62c2b6e4bf5
+  RealmSwift: a4fa52d06e946a32ec746b3388374f742e6b8731
+  SortedSet: 8588c0962cb747e5cd8e1582fe1e0e26f385ba4d
 
-PODFILE CHECKSUM: 86040646366ce5d9a1b665dea39cdaafa33aa9be
+PODFILE CHECKSUM: e56f7d12c0fda5ad86e167374bb1a7dd2b42ac90
 
 COCOAPODS: 1.1.1
