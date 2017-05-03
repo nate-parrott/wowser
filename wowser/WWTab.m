@@ -142,15 +142,42 @@
 }
 
 - (void)webView:(WKWebView *)webView runOpenPanelWithParameters:(WKOpenPanelParameters *)parameters initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSArray<NSURL *> * _Nullable))completionHandler {
-    // TODO
+    NSOpenPanel *panel = [NSOpenPanel new];
+    panel.allowsMultipleSelection = parameters.allowsMultipleSelection;
+    [panel beginSheetModalForWindow:webView.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            completionHandler(panel.URLs);
+        } else {
+            completionHandler(nil);
+        }
+    }];
+}
+
+- (NSAlert *)createAlertForWebView:(WKWebView *)webView frame:(WKFrameInfo *)frame {
+    NSAlert *alert = [NSAlert new];
+    alert.alertStyle = NSAlertStyleInformational;
+    NSString *host = frame.request.URL.host;
+    alert.messageText = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ says:", @"google.com says:"), host];
+    return alert;
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
-    // TODO
+    NSAlert *alert = [self createAlertForWebView:webView frame:frame];
+    alert.informativeText = message;
+    [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+    [alert beginSheetModalForWindow:webView.window completionHandler:^(NSModalResponse returnCode) {
+        completionHandler();
+    }];
 }
 
-- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
-    // TODO
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
+    NSAlert *alert = [self createAlertForWebView:webView frame:frame];
+    alert.informativeText = message;
+    [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert beginSheetModalForWindow:webView.window completionHandler:^(NSModalResponse returnCode) {
+        completionHandler(returnCode == NSAlertFirstButtonReturn);
+    }];
 }
 
 - (void)webViewDidClose:(WKWebView *)webView {
@@ -158,7 +185,23 @@
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable result))completionHandler {
-    // TODO
+    NSAlert *alert = [self createAlertForWebView:webView frame:frame];
+    alert.informativeText = prompt;
+    NSTextField *field = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    field.stringValue = defaultText ? : @"";
+    alert.accessoryView = field;
+    [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert beginSheetModalForWindow:webView.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            completionHandler(field.stringValue);
+        } else {
+            completionHandler(nil);
+        }
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [field becomeFirstResponder];
+    });
 }
 
 @end

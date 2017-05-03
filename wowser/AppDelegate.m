@@ -88,8 +88,10 @@
     NSURL *url = [NSURL URLWithString:urlStr];
     if (url) {
         [[self getWindowControllerForOpeningANewTab] newTabWithURL:url];
+        [[self getWindowControllerForOpeningANewTab].window makeKeyAndOrderFront:nil];
+        [NSApp activateIgnoringOtherApps:YES];
     }
-    NSLog(@"DID LAUNCH URL: %@", url);
+    // NSLog(@"DID LAUNCH URL: %@", url);
 }
 
 @end
