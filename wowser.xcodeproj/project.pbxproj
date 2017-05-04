@@ -24,6 +24,8 @@
 		5F733F261EA32D9500D413BB /* WWTransformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F251EA32D9500D413BB /* WWTransformView.m */; };
 		5F733F291EA46C4700D413BB /* NSURL+NaturalURLEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */; };
 		5F7647F51EB7B6FD0025C4F9 /* WWURLTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7647F41EB7B6FD0025C4F9 /* WWURLTextField.m */; };
+		5FA2355E1EBAE13C001D1095 /* URLCompleterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2355D1EBAE13C001D1095 /* URLCompleterTests.swift */; };
+		5FA235601EBAE2A8001D1095 /* URLCompleterDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2355F1EBAE2A8001D1095 /* URLCompleterDataStore.swift */; };
 		5FA8DBE51EB0679100D33F23 /* URLCompleter_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8DBE41EB0679100D33F23 /* URLCompleter_old.swift */; };
 		5FC3AADD1EA6BA3E00D69DC4 /* Impetus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */; };
 		5FEE26931EBA4C860098C58D /* URLCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEE26921EBA4C860098C58D /* URLCompleter.swift */; };
@@ -62,6 +64,8 @@
 		5F733F281EA46C4700D413BB /* NSURL+NaturalURLEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+NaturalURLEntry.m"; sourceTree = "<group>"; };
 		5F7647F31EB7B6FD0025C4F9 /* WWURLTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWURLTextField.h; sourceTree = "<group>"; };
 		5F7647F41EB7B6FD0025C4F9 /* WWURLTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWURLTextField.m; sourceTree = "<group>"; };
+		5FA2355D1EBAE13C001D1095 /* URLCompleterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCompleterTests.swift; sourceTree = "<group>"; };
+		5FA2355F1EBAE2A8001D1095 /* URLCompleterDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCompleterDataStore.swift; sourceTree = "<group>"; };
 		5FA8DBE41EB0679100D33F23 /* URLCompleter_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCompleter_old.swift; sourceTree = "<group>"; };
 		5FC3AADB1EA6BA3E00D69DC4 /* wowser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wowser-Bridging-Header.h"; sourceTree = "<group>"; };
 		5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Impetus.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				5F7647F91EB7B97E0025C4F9 /* Utility views */,
 				5F7647FA1EB7B98C0025C4F9 /* Utilities */,
 				5FEE26921EBA4C860098C58D /* URLCompleter.swift */,
+				5FA2355F1EBAE2A8001D1095 /* URLCompleterDataStore.swift */,
+				5FA2355D1EBAE13C001D1095 /* URLCompleterTests.swift */,
 				5FEE26941EBA55030098C58D /* URLNormalization.swift */,
 				5FA8DBE41EB0679100D33F23 /* URLCompleter_old.swift */,
 				5F2BAF161E9F1F5D00DD9B4B /* Assets.xcassets */,
@@ -342,9 +348,11 @@
 				5F733F201EA0541C00D413BB /* WWTitleCell.m in Sources */,
 				5FEE26951EBA55030098C58D /* URLNormalization.swift in Sources */,
 				5F2BAF2E1E9F217A00DD9B4B /* WWWindowController.m in Sources */,
+				5FA2355E1EBAE13C001D1095 /* URLCompleterTests.swift in Sources */,
 				5F2BAF381E9F419B00DD9B4B /* WWWebView.m in Sources */,
 				5FEE26931EBA4C860098C58D /* URLCompleter.swift in Sources */,
 				5FC3AADD1EA6BA3E00D69DC4 /* Impetus.swift in Sources */,
+				5FA235601EBAE2A8001D1095 /* URLCompleterDataStore.swift in Sources */,
 				5F7647F51EB7B6FD0025C4F9 /* WWURLTextField.m in Sources */,
 				5F2BAF121E9F1F5D00DD9B4B /* AppDelegate.m in Sources */,
 				5F2BAF321E9F22DB00DD9B4B /* WWTab.m in Sources */,

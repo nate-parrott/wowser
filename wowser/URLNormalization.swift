@@ -13,6 +13,8 @@ extension URL {
         get {
             var comps = URLComponents(url: normalized, resolvingAgainstBaseURL: false)!
             comps.path = ""
+            comps.query = nil
+            comps.fragment = nil
             return comps.url!
         }
     }

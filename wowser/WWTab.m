@@ -13,6 +13,7 @@
 #import "NSURL+NaturalURLEntry.h"
 #import <KVOController/NSObject+FBKVOController.h>
 #import "WWWindowController.h"
+#import "wowser-Swift.h"
 
 @interface WWTab () <WWTitleCellDelegate, WKNavigationDelegate, WKUIDelegate> {
     WWWebView *_webView;
@@ -36,6 +37,7 @@
         _webView.customUserAgent = @"Mozilla/6.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/8.0 Mobile/10A5376e Safari/8536.25";
         _webView.allowsBackForwardNavigationGestures = YES;
         _webView.UIDelegate = self;
+        _webView.navigationDelegate = self;
         _view = [[WWTabView alloc] initWithWebView:_webView tab:self];
         
         __weak WWTab *weakSelf = self;
@@ -112,7 +114,12 @@
     // TODO
 }
 
-//#pragma mark Navigation delegate
+#pragma mark Navigation delegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    if (webView.URL && webView.title) {
+        [[URLCompleter shared] recordPageLoadWithUrl:webView.URL title:webView.title];
+    }
+}
 //
 //- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
 //    

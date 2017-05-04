@@ -7,40 +7,32 @@
 //
 
 import Foundation
-import RealmSwift
+import SortedSet
 
-class URLCompleterEntry: Object {
-    dynamic var url: String = ""
-    dynamic var title: String = ""
+@objc class URLCompleter: NSObject {
+    @objc static let shared = URLCompleter()
     
-    // properties for querying as-you-type:
-    dynamic var titleForSearch: String = "" // lowercased
-    dynamic var urlForSearch: String = "" // lowercased, scheme and www. are stripped
+    private let _dataStore = URLCompleterDataStore()
     
-    dynamic var score: Double = 0
-    
-    override static func indexedProperties() -> [String] {
-        return ["url", "titleForSearch", "urlForSearch"]
+    // MARK: API
+    @objc func recordPageLoad(url: URL, title: String) {
+        let normalizedUrl = url.normalized
+        let wasDirectlyTyped = (normalizedUrl == _lastDirectlyTypedURL)
+        _dataStore.performAsyncWithLock {
+            if wasDirectlyTyped {
+                self._dataStore.addScoreForPage(url: normalizedUrl, score: 10)
+            }
+            self._dataStore.addScoreForPage(url: url.hostRoot, score: 10)
+            self._dataStore.addTitleForPage(url: normalizedUrl, title: title)
+        }
     }
+    
+    private var _lastDirectlyTypedURL: URL?
+    func recordDirectlyTypedURL(url: URL) {
+        _lastDirectlyTypedURL = url.normalized
+    }
+    
+    // MARK: Private storage functions
+    
 }
 
-class URLCompleterState: Object {
-    dynamic var insertionsSinceLastCleanup: Int = 0
-    dynamic var timeOfLastCleanup: Double = 0
-}
-
-class URLCompleterTests : NSObject {
-    @objc static func testAll() {
-        testURLMethods()
-    }
-    static func testURLMethods() {
-        let root = URL(string: "http://nateparrott.com")!
-        let stillRoot = URL(string: "HTTP://NATEPARROTT.com/")!
-        let notRoot = URL(string: "http://nateparrott.com/page")!
-        assert(root.normalized == stillRoot.normalized)
-        assert(root.isHostRoot)
-        assert(stillRoot.isHostRoot)
-        assert(!notRoot.isHostRoot)
-        print("testURLMethods passed!")
-    }
-}
