@@ -14,7 +14,9 @@ class URLCompleterDataStore {
     
     func performAsyncWithLock(fn: @escaping (() -> ())) {
         DispatchQueue.global(qos: .background).async {
+            self.lock.lock()
             fn()
+            self.lock.unlock()
         }
     }
     
