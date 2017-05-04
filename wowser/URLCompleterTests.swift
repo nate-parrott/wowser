@@ -11,6 +11,7 @@ import Foundation
 class URLCompleterTests : NSObject {
     @objc static func testAll() {
         testURLMethods()
+        testAutocompletes()
     }
     static func testURLMethods() {
         let root = URL(string: "http://nateparrott.com")!
@@ -21,5 +22,15 @@ class URLCompleterTests : NSObject {
         assert(stillRoot.isHostRoot)
         assert(!notRoot.isHostRoot)
         print("testURLMethods passed!")
+    }
+    static func testAutocompletes() {
+        LoadSearchAutocompletes(query: "he") {
+            (items) in
+            if let i = items {
+                print("\(i)")
+            } else {
+                print("no autocompletes")
+            }
+        }
     }
 }
