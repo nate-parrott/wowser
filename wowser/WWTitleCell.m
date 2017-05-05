@@ -9,10 +9,12 @@
 #import "WWTitleCell.h"
 #import "WWTransformView.h"
 #import "WWWindowController.h"
+#import "WWAutocompleteDropdownView.h"
 @import QuartzCore;
 
 @interface WWTitleCell () <NSTextFieldDelegate> {
     NSTrackingArea *_trackingArea;
+    NSPopover *_popover;
 }
 
 @property (nonatomic) NSTextField *title, *url;
@@ -21,6 +23,10 @@
 
 @property (nonatomic) WWTransformView *titleTransformView, *urlTransformView;
 @property (nonatomic) BOOL urlFieldFocused, mouseHovering, urlVisible;
+
+@property (nonatomic) NSArray<NSObject<WWAutocompletion> *> *autocompletions; // popover will be shown if autocompletions != nil
+@property (nonatomic) BOOL popoverVisible;
+@property (nonatomic, weak) WWAutocompleteDropdownView *dropdownView;
 
 @end
 
@@ -185,8 +191,21 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 self.url.stringValue = self.urlString ? : @"";
             });
+            self.autocompletions = nil;
         }
     }
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    NSMutableArray *completions = [NSMutableArray new];
+    NSInteger count = arc4random() % 5 + 1;
+    for (NSInteger i=0; i<count; i++) {
+        WWTestAutocompletion *ac = [WWTestAutocompletion new];
+        ac.title = [self.url.stringValue stringByAppendingString:self.url.stringValue];
+        ac.potentialTypingCompletions = @[ac.title];
+        [completions addObject:ac];
+    }
+    self.autocompletions = completions;
 }
 
 - (void)textFieldDidReturn:(NSTextField *)field {
@@ -215,6 +234,41 @@
 
 - (void)focusAndSelectText {
     [self.url becomeFirstResponder];
+}
+
+#pragma mark Autocompletions popover
+
+- (void)setAutocompletions:(NSArray<NSObject<WWAutocompletion> *> *)autocompletions {
+    _autocompletions = autocompletions;
+    self.popoverVisible = autocompletions != nil;
+    self.dropdownView.completions = autocompletions;
+}
+
+- (BOOL)popoverVisible {
+    return _popover != nil;
+}
+
+- (void)setPopoverVisible:(BOOL)popoverVisible {
+    if (popoverVisible != [self popoverVisible]) {
+        if (popoverVisible) {
+            // show popover
+            _popover = [[NSPopover alloc] init];
+            
+            WWAutocompleteDropdownView *dropdownView = [WWAutocompleteDropdownView new];
+            
+            NSViewController *vc = [NSViewController new];
+            vc.view = dropdownView;
+            self.dropdownView = dropdownView;
+            
+            _popover.contentViewController = vc;
+            _popover.contentSize = NSMakeSize(200, 300);
+            [_popover showRelativeToRect:self.bounds ofView:self preferredEdge:NSRectEdgeMinY];
+        } else {
+            // hide popover
+            [_popover close];
+            _popover = nil;
+        }
+    }
 }
 
 @end
