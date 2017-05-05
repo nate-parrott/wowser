@@ -208,6 +208,20 @@
     self.autocompletions = completions;
 }
 
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector {
+    
+    if (commandSelector == @selector(moveUp:)) {
+        [self adjustIndexOfSelectedAutocompleteBy:-1];
+        return YES;
+    }
+    if( commandSelector == @selector(moveDown:) ){
+        [self adjustIndexOfSelectedAutocompleteBy:1];
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (void)textFieldDidReturn:(NSTextField *)field {
     [self.delegate titleCell:self didTypeReturnWithText:field.stringValue];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -242,6 +256,17 @@
     _autocompletions = autocompletions;
     self.popoverVisible = autocompletions != nil;
     self.dropdownView.completions = autocompletions;
+    self.dropdownView.selectedCompletion = nil;
+}
+
+- (void)adjustIndexOfSelectedAutocompleteBy:(NSInteger)delta {
+    NSInteger index = -1;
+    if (self.dropdownView.selectedCompletion) {
+        index = [self.dropdownView.completions indexOfObject:self.dropdownView.selectedCompletion];
+    }
+    index += delta;
+    index = MIN((NSInteger)self.dropdownView.completions.count-1, MAX(-1, index));
+    self.dropdownView.selectedCompletion = (index == -1) ? nil : self.dropdownView.completions[index];
 }
 
 - (BOOL)popoverVisible {
