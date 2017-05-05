@@ -201,7 +201,8 @@
     NSInteger count = arc4random() % 5 + 1;
     for (NSInteger i=0; i<count; i++) {
         WWTestAutocompletion *ac = [WWTestAutocompletion new];
-        ac.title = [self.url.stringValue stringByAppendingString:self.url.stringValue];
+        NSString *query = [self urlFieldValueDisregardingSelection];
+        ac.title = [query stringByAppendingString:query];
         ac.potentialTypingCompletions = @[ac.title];
         [completions addObject:ac];
     }
@@ -236,6 +237,22 @@
     }
 }
 
+- (NSString *)urlFieldValueDisregardingSelection {
+    NSString *str = self.url.stringValue;
+    NSRange selectedRange = self.url.currentEditor.selectedRange;
+    // is there a selection at the end of the string?
+    if ([self urlFieldCursorIsAtEnd]) {
+        str = [str stringByReplacingCharactersInRange:selectedRange withString:@""];
+    }
+    return str;
+}
+
+- (BOOL)urlFieldCursorIsAtEnd {
+    NSString *str = self.url.stringValue;
+    NSRange selectedRange = self.url.currentEditor.selectedRange;
+    return (selectedRange.location != NSNotFound && selectedRange.location + selectedRange.length == str.length);
+}
+
 #pragma mark Actions
 
 - (IBAction)close:(id)sender {
@@ -257,6 +274,7 @@
     self.popoverVisible = autocompletions != nil;
     self.dropdownView.completions = autocompletions;
     self.dropdownView.selectedCompletion = nil;
+    [self updateURLFieldTypeahead];
 }
 
 - (void)adjustIndexOfSelectedAutocompleteBy:(NSInteger)delta {
@@ -267,6 +285,26 @@
     index += delta;
     index = MIN((NSInteger)self.dropdownView.completions.count-1, MAX(-1, index));
     self.dropdownView.selectedCompletion = (index == -1) ? nil : self.dropdownView.completions[index];
+    [self updateURLFieldTypeahead];
+}
+
+- (void)updateURLFieldTypeahead {
+    NSString *typeahead = @"";
+    NSString *typed = [self urlFieldValueDisregardingSelection];
+    if (self.dropdownView.selectedCompletion) {
+        for (NSString *option in self.dropdownView.selectedCompletion.potentialTypingCompletions) {
+            if ([option.lowercaseString rangeOfString:option.lowercaseString].location == 0) {
+                typeahead = [option substringFromIndex:typed.length];
+                break;
+            }
+        }
+    }
+    if ([self urlFieldCursorIsAtEnd]) {
+        NSString *newText = [typed stringByAppendingString:typeahead];
+        NSRange newSelectedRange = NSMakeRange(typed.length, typeahead.length);
+        self.url.stringValue = newText;
+        self.url.currentEditor.selectedRange = newSelectedRange;
+    }
 }
 
 - (BOOL)popoverVisible {
