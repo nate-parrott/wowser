@@ -14,6 +14,7 @@
 
 - (NSString *)title;
 - (NSArray<NSString *> *)potentialTypingCompletions;
+- (NSURL *)url;
 
 @end
 
@@ -21,5 +22,6 @@
 
 @property (nonatomic) NSString *title;
 @property (nonatomic) NSArray<NSString *> *potentialTypingCompletions;
+@property (nonatomic) NSURL *url;
 
 @end

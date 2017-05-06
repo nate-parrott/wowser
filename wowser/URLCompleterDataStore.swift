@@ -23,7 +23,9 @@ class URLCompleterDataStore {
     // these methods MUST be called from inside performAsyncWithLock
     
     func addScoreForPage(url: URL, score: Double) {
-        // url must be normalized
+        // url must be normalized by caller
+        
+        decayAndCleanIfNeeded()
         
         var entry: Entry!
         if let existing = entriesByUrl[url] {
@@ -35,8 +37,6 @@ class URLCompleterDataStore {
         }
         entry.score += score
         entriesByScore.insert(entry)
-        
-        decayAndCleanIfNeeded()
         
         let c = entriesByScore.count
         print("\(c) entries now")

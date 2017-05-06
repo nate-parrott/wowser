@@ -114,6 +114,12 @@
     // TODO
 }
 
+- (void)titleCell:(WWTitleCell *)titleCell launchAutocompletion:(NSObject<WWAutocompletion> *)completion {
+    if ([completion url]) {
+        [[self getOrCreateView].webView loadRequest:[NSURLRequest requestWithURL:[completion url]]];
+    }
+}
+
 #pragma mark Navigation delegate
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (webView.URL && webView.title) {

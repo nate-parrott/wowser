@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "WWAutocompletion.h"
 
 @class WWTitleCell;
 
@@ -15,6 +16,7 @@
 - (void)titleCell:(WWTitleCell *)titleCell didTypeReturnWithText:(NSString *)text;
 - (void)titleCellWantsToCloseTab:(WWTitleCell *)titleCell;
 - (void)titleCell:(WWTitleCell *)titleCell wantsTabMenuWithSource:(NSView *)sourceView;
+- (void)titleCell:(WWTitleCell *)titleCell launchAutocompletion:(NSObject<WWAutocompletion> *)completion;
 
 @end
 

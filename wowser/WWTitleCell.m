@@ -322,6 +322,10 @@
             NSViewController *vc = [NSViewController new];
             vc.view = dropdownView;
             self.dropdownView = dropdownView;
+            __weak WWTitleCell *weakSelf = self;
+            [dropdownView setOnPickedCompletion:^(NSObject<WWAutocompletion> *completion) {
+                [weakSelf.delegate titleCell:weakSelf launchAutocompletion:completion];
+            }];
             
             _popover.contentViewController = vc;
             _popover.contentSize = NSMakeSize(200, 300);
