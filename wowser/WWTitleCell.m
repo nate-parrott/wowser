@@ -10,6 +10,7 @@
 #import "WWTransformView.h"
 #import "WWWindowController.h"
 #import "WWAutocompleteDropdownView.h"
+#import "wowser-Swift.h"
 @import QuartzCore;
 
 @interface WWTitleCell () <NSTextFieldDelegate> {
@@ -27,6 +28,7 @@
 @property (nonatomic) NSArray<NSObject<WWAutocompletion> *> *autocompletions; // popover will be shown if autocompletions != nil
 @property (nonatomic) BOOL popoverVisible;
 @property (nonatomic, weak) WWAutocompleteDropdownView *dropdownView;
+@property (nonatomic) Autocompleter *autocompleter;
 
 @end
 
@@ -87,6 +89,11 @@
     self.urlVisible = NO;
     
     self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
+    
+    __weak WWTitleCell *weakSelf = self;
+    self.autocompleter = [[Autocompleter alloc] initWithCallback:^(NSArray<Autocompletion *> *completions) {
+        weakSelf.autocompletions = completions;
+    }];
     
     return self;
 }
@@ -197,16 +204,7 @@
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj {
-    NSMutableArray *completions = [NSMutableArray new];
-    NSInteger count = arc4random() % 5 + 1;
-    for (NSInteger i=0; i<count; i++) {
-        WWTestAutocompletion *ac = [WWTestAutocompletion new];
-        NSString *query = [self urlFieldValueDisregardingSelection];
-        ac.title = [query stringByAppendingString:query];
-        ac.potentialTypingCompletions = @[ac.title];
-        [completions addObject:ac];
-    }
-    self.autocompletions = completions;
+    self.autocompleter.query = [self urlFieldValueDisregardingSelection];
 }
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector {
@@ -325,6 +323,7 @@
             __weak WWTitleCell *weakSelf = self;
             [dropdownView setOnPickedCompletion:^(NSObject<WWAutocompletion> *completion) {
                 [weakSelf.delegate titleCell:weakSelf launchAutocompletion:completion];
+                [weakSelf.window makeFirstResponder:nil];
             }];
             
             _popover.contentViewController = vc;

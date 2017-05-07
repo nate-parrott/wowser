@@ -27,7 +27,7 @@ static const NSInteger WWAutocompleteMaxItems = 7;
 
 - (void)setCompletions:(NSArray<NSObject<WWAutocompletion> *> *)completions {
     _completions = completions;
-    for (NSInteger i=0; i<completions.count; i++) {
+    for (NSInteger i=0; i<MIN(self.buttons.count, completions.count); i++) {
         [self assignButton:self.buttons[i] toCompletion:completions[i]];
     }
     [self setNeedsLayout:YES];

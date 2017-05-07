@@ -4,3 +4,4 @@
 
 
 #import "WWAutocompletion.h"
+#import "NSURL+NaturalURLEntry.h"

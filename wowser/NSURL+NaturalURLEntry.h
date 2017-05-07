@@ -11,5 +11,6 @@
 @interface NSURL (NaturalURLEntry)
 
 + (NSURL *)withNaturalString:(NSString *)string;
++ (NSURL *)searchEngineURLForString:(NSString *)query;
 
 @end

@@ -17,9 +17,13 @@ func LoadSearchAutocompletes(query: String, callback: @escaping ([String]?) -> (
             let json = try? JSONSerialization.jsonObject(with: data, options: []), let jsonArray = json as? [Any],
                 jsonArray.count >= 1,
             let completions = jsonArray[1] as? [String] {
-            callback(completions)
+            DispatchQueue.main.async {
+                callback(completions)
+            }
         } else {
-            callback(nil)
+            DispatchQueue.main.async {
+                callback(nil)
+            }
         }
     }
     task.resume()

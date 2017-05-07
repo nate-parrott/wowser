@@ -10,7 +10,7 @@ import Foundation
 
 public class QueryHandler<Query: Equatable, Result> {
     public typealias ResultsCallback = ([Result]) -> ()
-    public typealias QueryFunction = (Query, ResultsCallback) -> ()
+    public typealias QueryFunction = (Query, @escaping ResultsCallback) -> ()
     
     public init(queryFn: @escaping QueryFunction, resultsCallback: @escaping ResultsCallback) {
         self.queryFn = queryFn

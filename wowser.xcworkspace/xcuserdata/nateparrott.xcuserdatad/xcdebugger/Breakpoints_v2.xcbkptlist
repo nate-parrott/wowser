@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "wowser/WWTitleCell.m"
-            timestampString = "515644369.453096"
+            timestampString = "515831328.130989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "-adjustIndexOfSelectedAutocompleteBy:"
             landmarkType = "7">
          </BreakpointContent>
