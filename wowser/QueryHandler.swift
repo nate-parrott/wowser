@@ -11,10 +11,21 @@ import Foundation
 public class QueryHandler<Query: Equatable, Result> {
     public typealias ResultsCallback = ([Result]) -> ()
     public typealias QueryFunction = (Query, @escaping ResultsCallback) -> ()
+    public typealias ReuseExistingResultsFunction = ([Result], Query) -> [Result]
     
     public init(queryFn: @escaping QueryFunction, resultsCallback: @escaping ResultsCallback) {
         self.queryFn = queryFn
         self.resultsCallback = resultsCallback
+    }
+    
+    public var reuseExistingResultsFunction: ReuseExistingResultsFunction?
+    
+    private var results: [Result]? {
+        didSet {
+            if let r = results {
+                resultsCallback(r)
+            }
+        }
     }
     
     private let queryFn: QueryFunction
@@ -22,6 +33,7 @@ public class QueryHandler<Query: Equatable, Result> {
     
     public var query: Query? {
         didSet {
+            results = results != nil ? tryReusingExistingResults(results: results!) : nil
             if !queryInProgress {
                 doQuery()
             }
@@ -37,7 +49,9 @@ public class QueryHandler<Query: Equatable, Result> {
             (results: [Result]) in
             // do callback:
             if queryAtRequestTime == self.query {
-                self.resultsCallback(results)
+                self.results = results
+            } else if self.results == nil {
+                self.results = self.tryReusingExistingResults(results: results)
             }
             self.queryInProgress = false
             if queryAtRequestTime != self.query {
@@ -53,4 +67,12 @@ public class QueryHandler<Query: Equatable, Result> {
     }
     
     private var queryInProgress = false
+    
+    private func tryReusingExistingResults(results: [Result]) -> [Result]? {
+        if let fn = reuseExistingResultsFunction, let q = query {
+            return fn(results, q)
+        } else {
+            return nil
+        }
+    }
 }

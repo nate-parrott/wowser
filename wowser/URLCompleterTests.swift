@@ -11,7 +11,7 @@ import Foundation
 class URLCompleterTests : NSObject {
     @objc static func testAll() {
         testURLMethods()
-        testAutocompletes()
+        // testAutocompletes()
     }
     static func testURLMethods() {
         let root = URL(string: "http://nateparrott.com")!

@@ -41,6 +41,11 @@ class Autocompleter: NSObject {
         }) { [weak self] (results) in
             self?.webAutocompletions = results
         }
+        webSearchAutocompletionQueryHandler.reuseExistingResultsFunction = {
+            (oldResults, newQuery) in
+            let q = newQuery.lowercased()
+            return oldResults.filter({ $0.lowercased().hasPrefix(q) })
+        }
     }
     
     let callback: ([Autocompletion]) -> ()
