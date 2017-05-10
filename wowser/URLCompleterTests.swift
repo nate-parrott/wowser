@@ -13,6 +13,7 @@ class URLCompleterTests : NSObject {
         testURLMethods()
         // testAutocompletes()
         testURLTypingCompletions()
+        URLCompleterDataStore.test()
     }
     static func testURLMethods() {
         let root = URL(string: "http://nateparrott.com")!
