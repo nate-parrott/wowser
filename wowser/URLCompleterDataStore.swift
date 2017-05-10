@@ -109,6 +109,7 @@ class URLCompleterDataStore {
                     completions.append(str)
                 }
             }
+            if let t = title { completions.append(t) }
             return completions
         }
     }

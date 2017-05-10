@@ -296,7 +296,7 @@
     NSString *typed = [self urlFieldValueDisregardingSelection];
     if (self.dropdownView.selectedCompletion) {
         NSObject<WWAutocompletion> *completion = self.dropdownView.selectedCompletion;
-        for (NSString *option in [completion.potentialTypingCompletions arrayByAddingObjectsFromArray:@[completion.title]]) {
+        for (NSString *option in completion.potentialTypingCompletions) {
             if ([option.lowercaseString rangeOfString:typed.lowercaseString].location == 0) {
                 typeahead = [option substringFromIndex:typed.length];
                 break;

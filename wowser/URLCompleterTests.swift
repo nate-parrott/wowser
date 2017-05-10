@@ -12,6 +12,7 @@ class URLCompleterTests : NSObject {
     @objc static func testAll() {
         testURLMethods()
         // testAutocompletes()
+        testURLTypingCompletions()
     }
     static func testURLMethods() {
         let root = URL(string: "http://nateparrott.com")!
@@ -34,6 +35,10 @@ class URLCompleterTests : NSObject {
         }
     }
     static func testURLTypingCompletions() {
-        
+        let entry = URLCompleterDataStore.Entry(url: URL(string: "http://www.google.com/xyz")!)
+        entry.title = "Google"
+        assert(entry.potentialTypingCompletions().contains("google.com/xyz"))
+        assert(entry.potentialTypingCompletions().contains("Google"))
+        assert(entry.potentialTypingCompletions().contains("www.google.com/xyz"))
     }
 }
