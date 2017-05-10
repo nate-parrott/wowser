@@ -290,8 +290,9 @@
     NSString *typeahead = @"";
     NSString *typed = [self urlFieldValueDisregardingSelection];
     if (self.dropdownView.selectedCompletion) {
-        for (NSString *option in self.dropdownView.selectedCompletion.potentialTypingCompletions) {
-            if ([option.lowercaseString rangeOfString:option.lowercaseString].location == 0) {
+        NSObject<WWAutocompletion> *completion = self.dropdownView.selectedCompletion;
+        for (NSString *option in [completion.potentialTypingCompletions arrayByAddingObjectsFromArray:@[completion.title]]) {
+            if ([option.lowercaseString rangeOfString:typed.lowercaseString].location == 0) {
                 typeahead = [option substringFromIndex:typed.length];
                 break;
             }

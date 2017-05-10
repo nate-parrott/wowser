@@ -73,6 +73,11 @@ class URLCompleterDataStore {
         }
     }
     
+    func search(query: String) -> [Entry] {
+        let lowercaseQuery = query.lowercased()
+        return entriesByScore.filter({ $0.matches(search: lowercaseQuery) })
+    }
+    
     // MARK: Entries
     class Entry: Comparable, Hashable {
         init(url: URL) {
@@ -83,6 +88,28 @@ class URLCompleterDataStore {
         var url: URL
         var hashValue: Int {
             return url.absoluteString.hashValue
+        }
+        func matches(search: String) -> Bool {
+            if let t = title, t.lowercased().hasPrefix(search) {
+                return true
+            }
+            for str in potentialTypingCompletions() {
+                if str.lowercased().hasPrefix(search) {
+                    return true
+                }
+            }
+            return false
+        }
+        func potentialTypingCompletions() -> [String] {
+            var completions = [url.absoluteString]
+            var str = url.absoluteString
+            for prefix in ["https://", "http://", "www."] {
+                if str.lowercased().hasPrefix(prefix) {
+                    str = str.byRemovingPrefix(prefix)
+                    completions.append(str)
+                }
+            }
+            return completions
         }
     }
     
@@ -108,4 +135,28 @@ func == (lhs: URLCompleterDataStore.Entry, rhs: URLCompleterDataStore.Entry) -> 
     return lhs.score == rhs.score && lhs.url.absoluteString == rhs.url.absoluteString
 }
 
+//extension URL {
+//    func hasFuzzyPrefix(_ prefix: String) -> Bool {
+//        let prefixLowercased = prefix.lowercased()
+//        var str = absoluteString.lowercased()
+//        if str.hasPrefix(prefixLowercased) {
+//            return true
+//        }
+//        for stripPrefix in ["https://", "http://", "www."] {
+//            if str.hasPrefix(stripPrefix) {
+//                str = str.substring(from: str.index(str.startIndex, offsetBy: stripPrefix.characters.count))
+//                if str.hasPrefix(prefixLowercased) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false
+//    }
+//}
+
+extension String {
+    func byRemovingPrefix(_ prefix: String) -> String {
+        return substring(from: index(startIndex, offsetBy: prefix.characters.count))
+    }
+}
 

@@ -33,19 +33,33 @@ class Autocompleter: NSObject {
         
         super.init()
         
-        webSearchAutocompletionQueryHandler = QueryHandler<String, String>(queryFn: { (query, callback) in
+        // create web search query handler:
+        
+        let webSearchAutocompletionQueryHandler = QueryHandler<String, Autocompletion>(queryFn: { (query, callback) in
             LoadSearchAutocompletes(query: query, callback: {
-                (completions) in
+                (completionStrings) in
+                let completions = completionStrings?.map({ autocompletionWithWebSearchQuery($0) })
                 callback(completions ?? [])
             })
         }) { [weak self] (results) in
-            self?.webAutocompletions = results
+            self?.resultsByCategory["web"] = results
         }
+        
         webSearchAutocompletionQueryHandler.reuseExistingResultsFunction = {
             (oldResults, newQuery) in
             let q = newQuery.lowercased()
-            return oldResults.filter({ $0.lowercased().hasPrefix(q) })
+            return oldResults.filter({ $0.title().lowercased().hasPrefix(q) })
         }
+        
+        // create history query handler:
+        
+        let historyQueryHandler = QueryHandler<String, Autocompletion>(queryFn: { (query, callback) in
+            URLCompleter.shared.search(query: query, callback: callback)
+        }) { [weak self] (results) in
+            self?.resultsByCategory["history"] = results
+        }
+        
+        queryHandlers = [webSearchAutocompletionQueryHandler, historyQueryHandler]
     }
     
     let callback: ([Autocompletion]) -> ()
@@ -53,28 +67,36 @@ class Autocompleter: NSObject {
     var query = "" {
         didSet(old) {
             if old != query {
-                webAutocompletions = []
-                webSearchAutocompletionQueryHandler.query = query
+                for handler in queryHandlers { handler.query = query }
             }
         }
     }
     
-    var webAutocompletions = [String]() {
+    private var queryHandlers = [QueryHandler<String, Autocompletion>]()
+    private var resultsByCategory = [String: [Autocompletion]]() {
         didSet {
-            _updateResults()
+            // assert main queue:
+            dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
+            
+            let categories = ["history", "web"]
+            var completions = [Autocompletion]()
+            for category in categories {
+                if let results = resultsByCategory[category] {
+                    completions += results
+                }
+            }
+            
+            completions = completions.filter({ $0.title() != "" })
+            
+            callback(completions)
         }
     }
-    
-    private var webSearchAutocompletionQueryHandler: QueryHandler<String, String>!
-    
-    func _updateResults() {
-        let webResults = webAutocompletions.map { (searchQuery) -> Autocompletion in
-            let result = Autocompletion()
-            result._title = searchQuery
-            result._url = NSURL.searchEngineURL(for: searchQuery)
-            result._potentialTypingCompletions = [searchQuery]
-            return result
-        }
-        callback(webResults)
-    }
+}
+
+private func autocompletionWithWebSearchQuery(_ searchQuery: String) -> Autocompletion {
+    let result = Autocompletion()
+    result._title = searchQuery
+    result._url = NSURL.searchEngineURL(for: searchQuery)
+    result._potentialTypingCompletions = [searchQuery]
+    return result
 }

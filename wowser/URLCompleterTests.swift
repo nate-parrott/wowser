@@ -33,4 +33,7 @@ class URLCompleterTests : NSObject {
             }
         }
     }
+    static func testURLTypingCompletions() {
+        
+    }
 }
