@@ -222,7 +222,12 @@
 }
 
 - (void)textFieldDidReturn:(NSTextField *)field {
-    [self.delegate titleCell:self didTypeReturnWithText:field.stringValue];
+    if (self.popoverVisible && self.dropdownView.selectedCompletion) {
+        [self.delegate titleCell:self launchAutocompletion:self.dropdownView.selectedCompletion];
+    } else {
+        [self.delegate titleCell:self didTypeReturnWithText:field.stringValue];
+    }
+    self.popoverVisible = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.window makeFirstResponder:nil];
     });
