@@ -13,4 +13,6 @@
 + (NSURL *)withNaturalString:(NSString *)string;
 + (NSURL *)searchEngineURLForString:(NSString *)query;
 
+- (NSString *)absoluteStringForDisplay;
+
 @end

@@ -38,4 +38,14 @@
     return comps.URL;
 }
 
+- (NSString *)absoluteStringForDisplay {
+    NSMutableString *str = self.absoluteString.mutableCopy;
+    for (NSString *prefix in @[@"https://", @"http://", @"www."]) {
+        if ([str hasPrefix:prefix] ) {
+            [str replaceCharactersInRange:NSMakeRange(0, prefix.length) withString:@""];
+        }
+    }
+    return str;
+}
+
 @end

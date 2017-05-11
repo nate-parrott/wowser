@@ -7,7 +7,7 @@
 //
 
 #import "WWAutocompleteDropdownView.h"
-
+#import "NSURL+NaturalURLEntry.h"
 
 static const CGFloat WWAutocompleteEntryFieldContentHeight = 20;
 static const CGFloat WWAutocompleteEntryPadding = 20;
@@ -100,7 +100,31 @@ static const NSInteger WWAutocompleteMaxItems = 7;
 #pragma mark Helpers
 
 - (void)assignButton:(NSButton *)button toCompletion:(NSObject<WWAutocompletion> *)completion {
-    button.title = completion.title ? : @"";
+    NSMutableParagraphStyle *para = [NSParagraphStyle defaultParagraphStyle].mutableCopy;
+    para.alignment = NSTextAlignmentCenter;
+    NSDictionary *titleAttrs = @{
+                                 NSFontAttributeName: [NSFont systemFontOfSize:[NSFont systemFontSize]],
+                                 NSParagraphStyleAttributeName: para,
+                                 NSForegroundColorAttributeName: [NSColor colorWithWhite:0 alpha:0.5]
+                                 };
+    NSDictionary *urlAttrs = @{
+                               NSFontAttributeName: [NSFont systemFontOfSize:9],
+                               NSForegroundColorAttributeName: [NSColor colorWithWhite:0 alpha:0.5],
+                               NSParagraphStyleAttributeName: para
+                               };
+    NSMutableAttributedString *str = [NSMutableAttributedString new];
+    if (completion.title) {
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:completion.title attributes:titleAttrs]];
+    }
+    BOOL showURL = completion.url && (completion.title == nil || ![completion.url isEqual:[NSURL searchEngineURLForString:completion.title]]);
+    if (completion.title && showURL) {
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:titleAttrs]];
+    }
+    if (showURL) {
+        [str appendAttributedString:[[NSAttributedString alloc] initWithString:[completion.url absoluteStringForDisplay] attributes:urlAttrs]];
+    }
+    button.attributedTitle = str;
+    
 }
 
 - (void)clickedButton:(NSButton *)sender {
