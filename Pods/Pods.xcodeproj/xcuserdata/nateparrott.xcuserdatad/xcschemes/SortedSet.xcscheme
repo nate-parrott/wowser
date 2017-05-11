@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '425AE66CF14157C0C0B106FE2AAEE0A7'
+               BlueprintIdentifier = '52E9999986339427B5687854B9654E2A'
                BlueprintName = 'SortedSet'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SortedSet.framework'>

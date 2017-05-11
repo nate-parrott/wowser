@@ -29,6 +29,7 @@
 		5FA235601EBAE2A8001D1095 /* URLCompleterDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA2355F1EBAE2A8001D1095 /* URLCompleterDataStore.swift */; };
 		5FA235621EBAF09B001D1095 /* QueryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA235611EBAF09B001D1095 /* QueryHandler.swift */; };
 		5FA235641EBAF5A3001D1095 /* WebSearchAutocompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA235631EBAF5A3001D1095 /* WebSearchAutocompleter.swift */; };
+		5FA48E6C1EC3D7990001301E /* AppSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA48E6B1EC3D7990001301E /* AppSupport.swift */; };
 		5FA8DBE51EB0679100D33F23 /* URLCompleter_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA8DBE41EB0679100D33F23 /* URLCompleter_old.swift */; };
 		5FB7B5121EBC0CF4003D2FD2 /* WWAutocompleteDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7B5111EBC0CF4003D2FD2 /* WWAutocompleteDropdownView.m */; };
 		5FB7B5151EBC0D0B003D2FD2 /* WWAutocompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB7B5141EBC0D0B003D2FD2 /* WWAutocompletion.m */; };
@@ -74,6 +75,7 @@
 		5FA2355F1EBAE2A8001D1095 /* URLCompleterDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCompleterDataStore.swift; sourceTree = "<group>"; };
 		5FA235611EBAF09B001D1095 /* QueryHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryHandler.swift; sourceTree = "<group>"; };
 		5FA235631EBAF5A3001D1095 /* WebSearchAutocompleter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSearchAutocompleter.swift; sourceTree = "<group>"; };
+		5FA48E6B1EC3D7990001301E /* AppSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSupport.swift; sourceTree = "<group>"; };
 		5FA8DBE41EB0679100D33F23 /* URLCompleter_old.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCompleter_old.swift; sourceTree = "<group>"; };
 		5FB7B5101EBC0CF4003D2FD2 /* WWAutocompleteDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWAutocompleteDropdownView.h; sourceTree = "<group>"; };
 		5FB7B5111EBC0CF4003D2FD2 /* WWAutocompleteDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWAutocompleteDropdownView.m; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				5F733F211EA0631E00D413BB /* ConvenienceCategories.h */,
 				5F733F221EA0631E00D413BB /* ConvenienceCategories.m */,
 				5FC3AADC1EA6BA3E00D69DC4 /* Impetus.swift */,
+				5FA48E6B1EC3D7990001301E /* AppSupport.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				5FA235601EBAE2A8001D1095 /* URLCompleterDataStore.swift in Sources */,
 				5F7647F51EB7B6FD0025C4F9 /* WWURLTextField.m in Sources */,
 				5F2BAF121E9F1F5D00DD9B4B /* AppDelegate.m in Sources */,
+				5FA48E6C1EC3D7990001301E /* AppSupport.swift in Sources */,
 				5F2BAF321E9F22DB00DD9B4B /* WWTab.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

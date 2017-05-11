@@ -28,19 +28,27 @@
     [URLCompleterTests testAll];
     [[self getWindowControllerForOpeningANewTab] ensureAtLeastOneTab];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        CFStringRef bundleID = (__bridge CFStringRef)[[NSBundle mainBundle] bundleIdentifier];
-        OSStatus httpResult = LSSetDefaultHandlerForURLScheme(CFSTR("http"), bundleID);
-        OSStatus httpsResult = LSSetDefaultHandlerForURLScheme(CFSTR("https"), bundleID);
-    });
+    [self makeDefaultBrowser];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
     [[self getWindowControllerForOpeningANewTab] ensureAtLeastOneTab];
 }
 
+- (void)applicationDidResignActive:(NSNotification *)notification {
+    [[URLCompleter shared] saveAndReturnError:nil];
+}
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    
+    [[URLCompleter shared] saveAndReturnError:nil];
+}
+
+- (void)makeDefaultBrowser {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CFStringRef bundleID = (__bridge CFStringRef)[[NSBundle mainBundle] bundleIdentifier];
+        OSStatus httpResult = LSSetDefaultHandlerForURLScheme(CFSTR("http"), bundleID);
+        OSStatus httpsResult = LSSetDefaultHandlerForURLScheme(CFSTR("https"), bundleID);
+    });
 }
 
 - (IBAction)newTab:(id)sender {

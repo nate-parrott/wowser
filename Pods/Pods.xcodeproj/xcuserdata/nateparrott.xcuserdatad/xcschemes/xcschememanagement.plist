@@ -14,16 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Realm.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>RealmSwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SortedSet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,22 +22,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>365FAEE50E70BDA7431D6BB779D43742</key>
+		<key>52E9999986339427B5687854B9654E2A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>425AE66CF14157C0C0B106FE2AAEE0A7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4EFDC534335FAA438B32C4FBA946C989</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>857A9D755D09BC97D9ACB25E9C274131</key>
+		<key>94D7A73146C519F4469B55125DE32F20</key>
 		<dict>
 			<key>primary</key>
 			<true/>

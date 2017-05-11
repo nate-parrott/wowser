@@ -23,6 +23,7 @@ class URLCompleterDataStore {
     // these methods MUST be called from inside performAsyncWithLock
     
     func addScoreForPage(url: URL, score: Double) {
+        print("adding score for url: \(url)")
         // url must be normalized by caller
         
         decayAndCleanIfNeeded()
@@ -43,6 +44,7 @@ class URLCompleterDataStore {
     }
     
     func addTitleForPage(url: URL, title: String) {
+        print("title: \(title) for page: \(url)")
         entriesByUrl[url]?.title = title
     }
     

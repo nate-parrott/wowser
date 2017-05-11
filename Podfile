@@ -7,7 +7,6 @@ target 'wowser' do
   
   pod 'KVOController'
   pod 'SortedSet'
-  pod 'RealmSwift'
     
   post_install do |installer|
     installer.pods_project.targets.each do |target|

@@ -19,6 +19,9 @@
     WWWebView *_webView;
     WWTabView *_view;
     WWTitleCell *_titleCell;
+    
+    WKNavigation *_currentNavigation;
+    NSMutableSet<NSURL *> *_urlsInCurrentNavigation;
 }
 
 @end
@@ -121,16 +124,32 @@
 }
 
 #pragma mark Navigation delegate
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    if (webView.URL && webView.title) {
-        [[URLCompleter shared] recordPageLoadWithUrl:webView.URL title:webView.title];
-    }
+
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
+    _currentNavigation = navigation;
+    _urlsInCurrentNavigation = [NSMutableSet new];
+    [_urlsInCurrentNavigation addObject:webView.URL];
 }
-//
-//- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
-//    
-//}
-//
+
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
+    [_urlsInCurrentNavigation addObject:webView.URL];
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [_urlsInCurrentNavigation addObject:webView.URL];
+    NSSet<NSURL *> *urls = _urlsInCurrentNavigation;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"%@", _urlsInCurrentNavigation);
+        NSLog(@"title: %@", webView.title);
+        for (NSURL *url in urls) {
+            [[URLCompleter shared] recordPageLoadWithUrl:url];
+            if (webView.title.length) {
+                [[URLCompleter shared] recordTitle:webView.title forURL:url];
+            }
+        }
+    });
+}
+
 //- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {
 //    
 //}
