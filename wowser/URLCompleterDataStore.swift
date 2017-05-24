@@ -43,6 +43,14 @@ class URLCompleterDataStore {
         print("\(c) entries now")
     }
     
+    func addAltURLs(_ alt: [URL], forPage: URL) {
+        if let entry = entriesByUrl[forPage.normalized] {
+            for url in alt {
+                entry.alternateURLs.insert(url.normalized)
+            }
+        }
+    }
+    
     func addTitleForPage(url: URL, title: String) {
         print("title: \(title) for page: \(url)")
         entriesByUrl[url]?.title = title
@@ -88,6 +96,7 @@ class URLCompleterDataStore {
         var score = 0.0
         var title: String?
         var url: URL
+        var alternateURLs = Set<URL>()
         var hashValue: Int {
             return url.absoluteString.hashValue
         }
@@ -103,19 +112,12 @@ class URLCompleterDataStore {
             return false
         }
         func potentialTypingCompletions() -> [String] {
-            var completions = [url.absoluteString]
-            var str = url.absoluteString
-            for prefix in ["https://", "http://", "www."] {
-                if str.lowercased().hasPrefix(prefix) {
-                    str = str.byRemovingPrefix(prefix)
-                    completions.append(str)
-                }
-            }
+            var completions = (Array(alternateURLs) + [url]).flatMap({$0.typeaheadStrings()})
             if let t = title { completions.append(t) }
             return completions
         }
         func toJson() -> [String: Any] {
-            return ["url": url.absoluteString, "title": title ?? NSNull(), "score": score]
+            return ["url": url.absoluteString, "title": title ?? NSNull(), "score": score, "alternateURLs": alternateURLs.map({ $0.absoluteString })]
         }
         static func fromJson(_ json: [String: Any]) -> Entry? {
             if let urlString = json["url"] as? String,
@@ -124,6 +126,8 @@ class URLCompleterDataStore {
                 let entry = Entry(url: url)
                 entry.score = score
                 entry.title = json["title"] as? String
+                let altURLStrings = (json["alternateURLs"] as? [String]) ?? [String]()
+                entry.alternateURLs = Set(altURLStrings.flatMap({URL(string: $0)}))
                 return entry
             } else {
                 return nil
@@ -178,10 +182,13 @@ class URLCompleterDataStore {
             ds.addScoreForPage(url: URL(string: "http://apple.com")!, score: 1)
             assert(ds.entriesByScore.count == 2)
             
+            ds.addAltURLs([URL(string: "http://google.co.uk")!], forPage: URL(string: "http://google.com")!)
+            
             let serialized = try! JSONSerialization.data(withJSONObject: ds.toJson(), options: [])
             let ds2 = URLCompleterDataStore.fromJson(try! JSONSerialization.jsonObject(with: serialized, options: []) as! [String: Any])!
             assert(ds2.entriesByUrl.count == 2)
             assert(ds2.entriesByScore.first!.url == URL(string: "http://apple.com")!)
+            assert(ds2.entriesByUrl[URL(string: "http://google.com")!]!.alternateURLs.contains(URL(string: "http://google.co.uk")!))
         }
     }
 }
@@ -204,6 +211,20 @@ func == (lhs: URLCompleterDataStore.Entry, rhs: URLCompleterDataStore.Entry) -> 
 extension String {
     func byRemovingPrefix(_ prefix: String) -> String {
         return substring(from: index(startIndex, offsetBy: prefix.characters.count))
+    }
+}
+
+extension URL {
+    func typeaheadStrings() -> [String] {
+        var str = absoluteString
+        var typeaheads = [str]
+        for prefix in ["https://", "http://", "www."] {
+            if str.lowercased().hasPrefix(prefix) {
+                str = str.byRemovingPrefix(prefix)
+                typeaheads.append(str)
+            }
+        }
+        return typeaheads
     }
 }
 

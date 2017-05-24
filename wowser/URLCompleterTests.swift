@@ -38,8 +38,10 @@ class URLCompleterTests : NSObject {
     static func testURLTypingCompletions() {
         let entry = URLCompleterDataStore.Entry(url: URL(string: "http://www.google.com/xyz")!)
         entry.title = "Google"
+        entry.alternateURLs.insert(URL(string: "https://hello.google.com")!)
         assert(entry.potentialTypingCompletions().contains("google.com/xyz"))
         assert(entry.potentialTypingCompletions().contains("Google"))
         assert(entry.potentialTypingCompletions().contains("www.google.com/xyz"))
+        assert(entry.potentialTypingCompletions().contains("hello.google.com"))
     }
 }

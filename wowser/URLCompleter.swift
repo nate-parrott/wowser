@@ -48,7 +48,7 @@ import SortedSet
     }
     
     // MARK: API
-    @objc func recordPageLoad(url: URL) {
+    @objc func recordPageLoad(url: URL, redirectChain: [URL]) {
         let normalizedUrl = url.normalized
         let wasDirectlyTyped = (normalizedUrl == _lastDirectlyTypedURL)
         _dataStore.performAsyncWithLock {
@@ -56,6 +56,7 @@ import SortedSet
                 self._dataStore.addScoreForPage(url: normalizedUrl, score: 10)
             }
             self._dataStore.addScoreForPage(url: url.hostRoot, score: 10)
+            self._dataStore.addAltURLs(redirectChain, forPage: url)
         }
     }
     

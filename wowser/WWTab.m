@@ -137,15 +137,17 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [_urlsInCurrentNavigation addObject:webView.URL];
-    NSSet<NSURL *> *urls = _urlsInCurrentNavigation;
+    
+    NSMutableSet<NSURL *> *redirectChain = _urlsInCurrentNavigation.mutableCopy;
+    NSURL *current = webView.URL;
+    [redirectChain removeObject:current];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"%@", _urlsInCurrentNavigation);
+        NSLog(@"%@ [redirected from %@]", current, redirectChain);
         NSLog(@"title: %@", webView.title);
-        for (NSURL *url in urls) {
-            [[URLCompleter shared] recordPageLoadWithUrl:url];
-            if (webView.title.length) {
-                [[URLCompleter shared] recordTitle:webView.title forURL:url];
-            }
+        [[URLCompleter shared] recordPageLoadWithUrl:current redirectChain:redirectChain.allObjects];
+        if (webView.title.length) {
+            [[URLCompleter shared] recordTitle:webView.title forURL:current];
         }
     });
 }
